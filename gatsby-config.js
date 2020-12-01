@@ -9,6 +9,7 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
