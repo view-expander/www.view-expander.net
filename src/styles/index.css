@@ -4,4 +4,5 @@ body {
   padding: 0;
   font-family: roboto,source-han-sans-cjk-ja,sans-serif;
   font-weight: 200;
+  font-feature-settings: "palt" 1;
 }
