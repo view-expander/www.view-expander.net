@@ -4,9 +4,11 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `View Expander`,
+    description: `旅と写真のブログ`,
+    author: `@haribote_nobody`,
+    instagram: `haribote`,
+    twitter: `haribote_nobody`,
   },
   plugins: [
     `gatsby-plugin-graphql-codegen`,
