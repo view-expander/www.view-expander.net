@@ -9,10 +9,9 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-
 require('./src/styles/index.css')
 const typeKit = require('./src/libs/type-kit')
 
 exports.onClientEntry = () => {
-  typeKit(document)
+  typeKit(document, process.env.TYPEKIT_ID)
 }

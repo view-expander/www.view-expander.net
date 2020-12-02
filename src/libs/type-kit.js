@@ -1,8 +1,8 @@
 /* eslint-disable no-var, eqeqeq, no-undef */
 
-module.exports = function (d) {
+module.exports = function (d, kitId) {
   var config = {
-      kitId: process.env.TYPEKIT_ID,
+      kitId,
       scriptTimeout: 3000,
       async: true,
     },
