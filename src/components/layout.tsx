@@ -1,7 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import { LayoutComponentQuery } from '../../graphql-types'
 import styled from 'styled-components'
+import { LayoutComponentQuery } from '../../graphql-types'
+import Header from './header'
 
 const Container = styled.div`
   width: 100%;
@@ -45,9 +46,7 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <Container>
-      <header>
-        <h1>{data.site?.siteMetadata?.title}</h1>
-      </header>
+      <Header />
       <main>{children}</main>
       <footer>© {data.site?.siteMetadata?.author}. All rights reserved.</footer>
     </Container>
