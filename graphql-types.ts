@@ -4679,6 +4679,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___minify'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
+  | 'pluginCreator___pluginOptions___typekit___id'
   | 'pluginCreator___pluginOptions___spaceId'
   | 'pluginCreator___pluginOptions___accessToken'
   | 'pluginCreator___pluginOptions___host'
@@ -4900,6 +4901,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___minify'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
+  | 'pluginOptions___typekit___id'
   | 'pluginOptions___spaceId'
   | 'pluginOptions___accessToken'
   | 'pluginOptions___host'
@@ -5048,6 +5050,7 @@ export type SitePluginPluginOptions = {
   minify?: Maybe<Scalars['Boolean']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
+  typekit?: Maybe<SitePluginPluginOptionsTypekit>;
   spaceId?: Maybe<Scalars['String']>;
   accessToken?: Maybe<Scalars['String']>;
   host?: Maybe<Scalars['String']>;
@@ -5087,6 +5090,7 @@ export type SitePluginPluginOptionsFilterInput = {
   minify?: Maybe<BooleanQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
+  typekit?: Maybe<SitePluginPluginOptionsTypekitFilterInput>;
   spaceId?: Maybe<StringQueryOperatorInput>;
   accessToken?: Maybe<StringQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
@@ -5101,6 +5105,14 @@ export type SitePluginPluginOptionsFilterInput = {
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   isTSX?: Maybe<BooleanQueryOperatorInput>;
   jsxPragma?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsTypekit = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsTypekitFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginSortInput = {
