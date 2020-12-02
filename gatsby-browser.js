@@ -6,9 +6,6 @@
 
 // You can delete this file if you're not using it
 
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
 require('./src/styles/index.css')
 const typeKit = require('./src/libs/type-kit')
 
