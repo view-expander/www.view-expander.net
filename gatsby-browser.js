@@ -10,5 +10,5 @@ require('./src/styles/index.css')
 const typeKit = require('./src/libs/type-kit')
 
 exports.onClientEntry = () => {
-  typeKit(document, process.env.TYPEKIT_ID)
+  typeKit(document, process.env.GATSBY_TYPEKIT_ID)
 }
