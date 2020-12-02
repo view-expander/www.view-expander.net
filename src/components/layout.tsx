@@ -4,6 +4,7 @@ import Footer from './footer'
 import Header from './header'
 
 const Container = styled.div`
+  box-sizing: border-box;
   width: 100%;
   padding-right: 1rem;
   padding-left: 1rem;
