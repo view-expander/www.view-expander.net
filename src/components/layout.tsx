@@ -7,8 +7,11 @@ const Container = styled.div`
   width: 100%;
   padding-right: 1rem;
   padding-left: 1rem;
+  margin-top: 80px;
+  margin-bottom: 80px;
   margin-right: auto;
   margin-left: auto;
+  color: #212529;
 
   @media (min-width: 576px) {
     max-width: 540px;
@@ -28,6 +31,10 @@ const Container = styled.div`
 
   @media (min-width: 1400px) {
     max-width: 1320px;
+  }
+
+  main {
+    margin-top: 100px;
   }
 `
 
