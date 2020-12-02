@@ -5160,6 +5160,11 @@ export type LayoutComponentQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LayoutComponentQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'author' | 'title'>> }> };
 
+export type SiteMetadataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SiteMetadataQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'author' | 'description' | 'instagram' | 'title' | 'twitter'>> }> };
+
 export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
