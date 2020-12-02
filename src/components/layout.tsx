@@ -1,7 +1,6 @@
-import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
-import { LayoutComponentQuery } from '../../graphql-types'
+import Footer from './footer'
 import Header from './header'
 
 const Container = styled.div`
@@ -32,25 +31,12 @@ const Container = styled.div`
   }
 `
 
-const Layout: React.FC = ({ children }) => {
-  const data = useStaticQuery<LayoutComponentQuery>(graphql`
-    query LayoutComponent {
-      site {
-        siteMetadata {
-          author
-          title
-        }
-      }
-    }
-  `)
-
-  return (
-    <Container>
-      <Header />
-      <main>{children}</main>
-      <footer>© {data.site?.siteMetadata?.author}. All rights reserved.</footer>
-    </Container>
-  )
-}
+const Layout: React.FC = ({ children }) => (
+  <Container>
+    <Header />
+    <main>{children}</main>
+    <Footer />
+  </Container>
+)
 
 export default Layout

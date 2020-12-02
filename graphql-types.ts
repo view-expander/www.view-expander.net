@@ -5155,11 +5155,6 @@ export type WebPOptions = {
   quality?: Maybe<Scalars['Int']>;
 };
 
-export type LayoutComponentQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LayoutComponentQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'author' | 'title'>> }> };
-
 export type SiteMetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
