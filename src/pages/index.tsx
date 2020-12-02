@@ -1,10 +1,10 @@
 import { graphql, PageProps } from 'gatsby'
 import React from 'react'
 import { IndexPageQuery } from '../../graphql-types'
+import Layout from '../components/layout'
 
 const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({ data }) => (
-  <div>
-    <h1>View Expander</h1>
+  <Layout>
     {data.allContentfulBlogPost.edges.map(({ node }) => (
       <article key={node.slug}>
         <h2>{node.title}</h2>
@@ -44,7 +44,7 @@ const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({ data }) => (
         </ul>
       </article>
     ))}
-  </div>
+  </Layout>
 )
 
 export const query = graphql`
