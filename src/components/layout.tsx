@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Footer from './footer'
@@ -74,13 +74,7 @@ const CONTAINER_ID = 'container'
 const Layout: React.FC = ({ children }) => (
   <>
     <Seo>
-      <noscript>
-        <style>{`
-          #${CONTAINER_ID} {
-            opacity: 1
-          }
-        `}</style>
-      </noscript>
+      <noscript>{`<style type="text/css">#${CONTAINER_ID} { opacity: 1 }</style>`}</noscript>
     </Seo>
     <Container id={CONTAINER_ID}>
       <Header />
