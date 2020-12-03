@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 import Footer from './footer'
 import Header from './header'
 
@@ -52,22 +53,26 @@ const Container = styled.div`
   }
 `
 
-const Seo: React.FC = ({ children }) => (
-  <Helmet>
-    <html lang="ja" />
-    <script>{`
+const Seo: React.FC = ({ children }) => {
+  const siteMetadata = useSiteMetadata()
+
+  return (
+    <Helmet>
+      <html lang="ja" />
+      <script>{`
         setTimeout(() => (function(d) {
           var config = {
-            kitId: "${process.env.GATSBY_TYPEKIT_ID}",
+            kitId: "${siteMetadata?.typekitId}",
             scriptTimeout: 3000,
             async: true
           },
           h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
         })(document), 1);
       `}</script>
-    {children}
-  </Helmet>
-)
+      {children}
+    </Helmet>
+  )
+}
 
 const CONTAINER_ID = 'container'
 
