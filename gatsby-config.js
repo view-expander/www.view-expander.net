@@ -7,6 +7,7 @@ module.exports = {
     title: `View Expander`,
     description: `旅と写真のブログ`,
     author: `@haribote_nobody`,
+    typekitId: process.env.GATSBY_TYPEKIT_ID,
     instagram: `haribote`,
     twitter: `haribote_nobody`,
   },
