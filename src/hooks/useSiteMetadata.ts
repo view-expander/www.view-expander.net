@@ -8,10 +8,10 @@ export const useSiteMetadata = () => {
         siteMetadata {
           author
           description
-          instagram
           title
-          typekitId
+          instagram
           twitter
+          typekitId
         }
       }
     }
