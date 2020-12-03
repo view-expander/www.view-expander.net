@@ -7,8 +7,3 @@
 // You can delete this file if you're not using it
 
 require('./src/styles/index.css')
-const typeKit = require('./src/libs/type-kit')
-
-exports.onClientEntry = () => {
-  typeKit(document, process.env.GATSBY_TYPEKIT_ID)
-}
