@@ -10,6 +10,7 @@ export const useSiteMetadata = () => {
           description
           instagram
           title
+          typekitId
           twitter
         }
       }

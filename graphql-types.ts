@@ -4249,6 +4249,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
+  | 'siteMetadata___typekitId'
   | 'siteMetadata___instagram'
   | 'siteMetadata___twitter'
   | 'port'
@@ -4992,6 +4993,7 @@ export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   author?: Maybe<Scalars['String']>
+  typekitId?: Maybe<Scalars['String']>
   instagram?: Maybe<Scalars['String']>
   twitter?: Maybe<Scalars['String']>
 }
@@ -5000,6 +5002,7 @@ export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>
   description?: Maybe<StringQueryOperatorInput>
   author?: Maybe<StringQueryOperatorInput>
+  typekitId?: Maybe<StringQueryOperatorInput>
   instagram?: Maybe<StringQueryOperatorInput>
   twitter?: Maybe<StringQueryOperatorInput>
 }
@@ -5040,7 +5043,12 @@ export type SiteMetadataQuery = {
     siteMetadata?: Maybe<
       Pick<
         SiteSiteMetadata,
-        'author' | 'description' | 'instagram' | 'title' | 'twitter'
+        | 'author'
+        | 'description'
+        | 'instagram'
+        | 'title'
+        | 'typekitId'
+        | 'twitter'
       >
     >
   }>
