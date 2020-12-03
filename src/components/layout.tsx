@@ -52,7 +52,7 @@ const Container = styled.div`
   }
 `
 
-const Seo: React.FC = () => (
+const Seo: React.FC = ({ children }) => (
   <Helmet>
     <html lang="ja" />
     <script>{`
@@ -65,13 +65,24 @@ const Seo: React.FC = () => (
           h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
         })(document), 1);
       `}</script>
+    {children}
   </Helmet>
 )
 
+const CONTAINER_ID = 'container'
+
 const Layout: React.FC = ({ children }) => (
   <>
-    <Seo />
-    <Container>
+    <Seo>
+      <noscript>
+        <style>{`
+          #${CONTAINER_ID} {
+            opacity: 1
+          }
+        `}</style>
+      </noscript>
+    </Seo>
+    <Container id={CONTAINER_ID}>
       <Header />
       <main>{children}</main>
       <Footer />
