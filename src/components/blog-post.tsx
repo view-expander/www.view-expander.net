@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
 
 type Props = Omit<
@@ -8,8 +9,12 @@ type Props = Omit<
   'slug'
 >
 
+const Article = styled.article`
+  margin-top: 100px;
+`
+
 const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
-  <article>
+  <Article>
     <h2>{title}</h2>
     <div>
       <time dateTime={date}>{date}</time>
@@ -44,7 +49,7 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
         )}
       </ul>
     ) : undefined}
-  </article>
+  </Article>
 )
 
 export default BlogPost
