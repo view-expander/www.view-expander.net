@@ -14,9 +14,23 @@ const PostArticle = styled.article`
   margin-top: 100px;
 `
 
+const PostBody = styled.section`
+  text-align: justify;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+`
+
 const PostDetail = styled.div`
   display: grid;
   gap: 1rem;
+  margin-top: 50px;
 
   @media (min-width: 992px) {
     grid-template-columns: 66.67% 1fr;
@@ -62,7 +76,7 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
     ) : undefined}
     <PostDetail>
       {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
-        <section
+        <PostBody
           dangerouslySetInnerHTML={{
             __html: body.childMarkdownRemark.html,
           }}
