@@ -39,22 +39,26 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
       <PostDate value={date} />
     </Header>
     {pictures && pictures.length > 0 ? (
-      <ul>
-        {pictures.map(item =>
-          item ? (
-            <li key={item.key}>
-              {item.key}: {item.width}x{item.height}
-            </li>
-          ) : undefined
-        )}
-      </ul>
+      <section>
+        <ul>
+          {pictures.map(item =>
+            item ? (
+              <li key={item.key}>
+                {item.key}: {item.width}x{item.height}
+              </li>
+            ) : undefined
+          )}
+        </ul>
+      </section>
     ) : undefined}
     {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
-      <div
-        dangerouslySetInnerHTML={{
-          __html: body.childMarkdownRemark.html,
-        }}
-      />
+      <section>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: body.childMarkdownRemark.html,
+          }}
+        />
+      </section>
     ) : undefined}
     {tags && tags.length > 0 ? (
       <ul>
