@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
+import PostDate from './PostDate'
 
 type Props = Omit<
   Required<
@@ -29,19 +30,13 @@ const Header = styled.header`
     margin-top: 0.5rem;
     margin-bottom: 0;
   }
-
-  time {
-    color: #6c757d;
-  }
 `
 
 const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
   <Article>
     <Header>
       <h2>{title}</h2>
-      <p>
-        <time dateTime={date}>{date}</time>
-      </p>
+      <PostDate value={date} />
     </Header>
     {pictures && pictures.length > 0 ? (
       <ul>
