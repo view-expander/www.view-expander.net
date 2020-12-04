@@ -10,11 +10,20 @@ type Props = Omit<
   'slug'
 >
 
-const Article = styled.article`
+const PostArticle = styled.article`
   margin-top: 100px;
 `
 
-const Header = styled.header`
+const PostDetail = styled.div`
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: 992px) {
+    grid-template-columns: 66.67% 1fr;
+  }
+`
+
+const PostHeader = styled.header`
   h2 {
     margin-top: 0;
     margin-bottom: 0;
@@ -33,11 +42,11 @@ const Header = styled.header`
 `
 
 const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
-  <Article>
-    <Header>
+  <PostArticle>
+    <PostHeader>
       <h2>{title}</h2>
       <PostDate value={date} />
-    </Header>
+    </PostHeader>
     {pictures && pictures.length > 0 ? (
       <section>
         <ul>
@@ -51,28 +60,28 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
         </ul>
       </section>
     ) : undefined}
-    {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
-      <section>
-        <div
+    <PostDetail>
+      {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
+        <section
           dangerouslySetInnerHTML={{
             __html: body.childMarkdownRemark.html,
           }}
         />
-      </section>
-    ) : undefined}
-    {tags && tags.length > 0 ? (
-      <ul>
-        {tags.map(item =>
-          item ? (
-            <li key={item.slug}>
-              {item.name}
-              <small>({item.slug})</small>
-            </li>
-          ) : undefined
-        )}
-      </ul>
-    ) : undefined}
-  </Article>
+      ) : undefined}
+      {tags && tags.length > 0 ? (
+        <ul>
+          {tags.map(item =>
+            item ? (
+              <li key={item.slug}>
+                {item.name}
+                <small>({item.slug})</small>
+              </li>
+            ) : undefined
+          )}
+        </ul>
+      ) : undefined}
+    </PostDetail>
+  </PostArticle>
 )
 
 export default BlogPost
