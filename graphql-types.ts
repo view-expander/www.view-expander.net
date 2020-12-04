@@ -4253,6 +4253,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___typekitId'
   | 'siteMetadata___instagram'
   | 'siteMetadata___twitter'
+  | 'siteMetadata___blogPostPagePath'
   | 'port'
   | 'host'
   | 'polyfill'
@@ -5008,6 +5009,7 @@ export type SiteSiteMetadata = {
   typekitId?: Maybe<Scalars['String']>
   instagram?: Maybe<Scalars['String']>
   twitter?: Maybe<Scalars['String']>
+  blogPostPagePath?: Maybe<Scalars['String']>
 }
 
 export type SiteSiteMetadataFilterInput = {
@@ -5017,6 +5019,7 @@ export type SiteSiteMetadataFilterInput = {
   typekitId?: Maybe<StringQueryOperatorInput>
   instagram?: Maybe<StringQueryOperatorInput>
   twitter?: Maybe<StringQueryOperatorInput>
+  blogPostPagePath?: Maybe<StringQueryOperatorInput>
 }
 
 export type SiteSortInput = {
@@ -5056,6 +5059,7 @@ export type SiteMetadataQuery = {
       Pick<
         SiteSiteMetadata,
         | 'author'
+        | 'blogPostPagePath'
         | 'description'
         | 'title'
         | 'instagram'

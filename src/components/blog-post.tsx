@@ -1,7 +1,8 @@
-import { Link } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 import PostDate from './PostDate'
 
 type Props = Required<
@@ -89,54 +90,64 @@ const BlogPost: React.FC<Props> = ({
   slug,
   tags,
   title,
-}) => (
-  <PostArticle>
-    <PostHeader>
-      <h2>
-        {permanent || !slug ? title : <Link to={`post/${slug}`}>{title}</Link>}
-      </h2>
-      <PostDate value={date} />
-    </PostHeader>
-    {pictures && pictures.length > 0 ? (
-      <section>
-        <ul>
-          {pictures.map(item =>
-            item ? (
-              <li key={item.key}>
-                {item.key}: {item.width}x{item.height}
-              </li>
-            ) : undefined
+}) => {
+  const siteMetadata = useSiteMetadata()
+
+  return (
+    <PostArticle>
+      <PostHeader>
+        <h2>
+          {permanent || !slug ? (
+            title
+          ) : (
+            <Link to={`${siteMetadata?.blogPostPagePath}/${slug}`}>
+              {title}
+            </Link>
           )}
-        </ul>
-      </section>
-    ) : undefined}
-    <PostDetail grid={Boolean(body)}>
-      {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
-        <PostBody
-          dangerouslySetInnerHTML={{
-            __html: body.childMarkdownRemark.html,
-          }}
-        />
-      ) : undefined}
-      {tags && tags.length > 0 ? (
-        <PostTags>
+        </h2>
+        <PostDate value={date} />
+      </PostHeader>
+      {pictures && pictures.length > 0 ? (
+        <section>
           <ul>
-            {tags
-              .sort((a, b) =>
-                a?.slug && b?.slug ? (a.slug < b.slug ? -1 : 1) : 0
-              )
-              .map(item =>
-                item ? (
-                  <li key={item.slug}>
-                    <a href={`#${item.slug}`}>{item.name}</a>
-                  </li>
-                ) : undefined
-              )}
+            {pictures.map(item =>
+              item ? (
+                <li key={item.key}>
+                  {item.key}: {item.width}x{item.height}
+                </li>
+              ) : undefined
+            )}
           </ul>
-        </PostTags>
+        </section>
       ) : undefined}
-    </PostDetail>
-  </PostArticle>
-)
+      <PostDetail grid={Boolean(body)}>
+        {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
+          <PostBody
+            dangerouslySetInnerHTML={{
+              __html: body.childMarkdownRemark.html,
+            }}
+          />
+        ) : undefined}
+        {tags && tags.length > 0 ? (
+          <PostTags>
+            <ul>
+              {tags
+                .sort((a, b) =>
+                  a?.slug && b?.slug ? (a.slug < b.slug ? -1 : 1) : 0
+                )
+                .map(item =>
+                  item ? (
+                    <li key={item.slug}>
+                      <a href={`#${item.slug}`}>{item.name}</a>
+                    </li>
+                  ) : undefined
+                )}
+            </ul>
+          </PostTags>
+        ) : undefined}
+      </PostDetail>
+    </PostArticle>
+  )
+}
 
 export default BlogPost

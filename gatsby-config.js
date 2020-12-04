@@ -10,6 +10,7 @@ module.exports = {
     typekitId: process.env.GATSBY_TYPEKIT_ID,
     instagram: `haribote`,
     twitter: `haribote_nobody`,
+    blogPostPagePath: `post`,
   },
   plugins: [
     `gatsby-plugin-graphql-codegen`,
