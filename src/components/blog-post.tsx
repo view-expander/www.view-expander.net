@@ -1,14 +1,14 @@
+import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
 import PostDate from './PostDate'
 
-type Props = Omit<
-  Required<
-    ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node']
-  >,
-  'slug'
->
+type Props = Required<
+  ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node']
+> & {
+  permanent?: boolean
+}
 
 const PostArticle = styled.article`
   margin-top: 100px;
@@ -81,10 +81,20 @@ const PostTags = styled.footer`
   }
 `
 
-const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
+const BlogPost: React.FC<Props> = ({
+  body,
+  date,
+  permanent = true,
+  pictures,
+  slug,
+  tags,
+  title,
+}) => (
   <PostArticle>
     <PostHeader>
-      <h2>{title}</h2>
+      <h2>
+        {permanent || !slug ? title : <Link to={`post/${slug}`}>{title}</Link>}
+      </h2>
       <PostDate value={date} />
     </PostHeader>
     {pictures && pictures.length > 0 ? (
