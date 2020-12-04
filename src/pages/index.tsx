@@ -1,49 +1,23 @@
 import { graphql, PageProps } from 'gatsby'
 import React from 'react'
 import { IndexPageQuery } from '../../graphql-types'
+import BlogPost from '../components/blog-post'
 import Layout from '../components/layout'
 
 const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({ data }) => (
   <Layout>
-    {data.allContentfulBlogPost.edges.map(({ node }) => (
-      <article key={node.slug}>
-        <h2>{node.title}</h2>
-        <p>
-          <small>{node.slug}</small>
-        </p>
-        <p>
-          <time dateTime={node.date}>{node.date}</time>
-        </p>
-        <ul>
-          {node.pictures?.map(item =>
-            item ? (
-              <li key={item.key}>
-                {item.key}: {item.width}x{item.height}
-              </li>
-            ) : undefined
-          )}
-        </ul>
-        {node.body &&
-        node.body.childMarkdownRemark &&
-        node.body.childMarkdownRemark.html ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: node.body.childMarkdownRemark.html,
-            }}
-          />
-        ) : undefined}
-        <ul>
-          {node.tags?.map(item =>
-            item ? (
-              <li key={item.slug}>
-                {item.name}
-                <small>({item.slug})</small>
-              </li>
-            ) : undefined
-          )}
-        </ul>
-      </article>
-    ))}
+    {data.allContentfulBlogPost.edges.map(({ node }) =>
+      node ? (
+        <BlogPost
+          key={node.slug}
+          body={node.body || null}
+          date={node.date}
+          pictures={node.pictures || []}
+          tags={node.tags || []}
+          title={node.title || null}
+        />
+      ) : undefined
+    )}
   </Layout>
 )
 
