@@ -111,13 +111,17 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
       {tags && tags.length > 0 ? (
         <PostTags>
           <ul>
-            {tags.map(item =>
-              item ? (
-                <li key={item.slug}>
-                  <a href={`#${item.slug}`}>{item.name}</a>
-                </li>
-              ) : undefined
-            )}
+            {tags
+              .sort((a, b) =>
+                a?.slug && b?.slug ? (a.slug < b.slug ? -1 : 1) : 0
+              )
+              .map(item =>
+                item ? (
+                  <li key={item.slug}>
+                    <a href={`#${item.slug}`}>{item.name}</a>
+                  </li>
+                ) : undefined
+              )}
           </ul>
         </PostTags>
       ) : undefined}
