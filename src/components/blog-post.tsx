@@ -55,6 +55,28 @@ const PostHeader = styled.header`
   }
 `
 
+const PostTags = styled.footer`
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: -0.5em;
+    padding: 0;
+    list-style: none;
+    color: #6c757d;
+  }
+
+  li {
+    display: inline-block;
+    margin-left: 0.5em;
+
+    &:before {
+      content: '#';
+    }
+  }
+`
+
 const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
   <PostArticle>
     <PostHeader>
@@ -83,16 +105,17 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
         />
       ) : undefined}
       {tags && tags.length > 0 ? (
-        <ul>
-          {tags.map(item =>
-            item ? (
-              <li key={item.slug}>
-                {item.name}
-                <small>({item.slug})</small>
-              </li>
-            ) : undefined
-          )}
-        </ul>
+        <PostTags>
+          <ul>
+            {tags.map(item =>
+              item ? (
+                <li key={item.slug}>
+                  <a href={`#${item.slug}`}>{item.name}</a>
+                </li>
+              ) : undefined
+            )}
+          </ul>
+        </PostTags>
       ) : undefined}
     </PostDetail>
   </PostArticle>
