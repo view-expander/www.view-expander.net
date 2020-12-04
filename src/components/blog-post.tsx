@@ -15,10 +15,12 @@ const Article = styled.article`
 
 const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
   <Article>
-    <h2>{title}</h2>
-    <div>
-      <time dateTime={date}>{date}</time>
-    </div>
+    <header>
+      <h2>{title}</h2>
+      <p>
+        <time dateTime={date}>{date}</time>
+      </p>
+    </header>
     {pictures && pictures.length > 0 ? (
       <ul>
         {pictures.map(item =>
