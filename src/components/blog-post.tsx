@@ -1,4 +1,4 @@
-import { graphql, Link } from 'gatsby'
+import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
@@ -60,6 +60,11 @@ const PostHeader = styled.header`
   }
 `
 
+const PostLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`
+
 const PostTags = styled.footer`
   ul {
     display: flex;
@@ -100,9 +105,9 @@ const BlogPost: React.FC<Props> = ({
           {permanent || !slug ? (
             title
           ) : (
-            <Link to={`${siteMetadata?.blogPostPagePath}/${slug}`}>
+            <PostLink to={`${siteMetadata?.blogPostPagePath}/${slug}`}>
               {title}
-            </Link>
+            </PostLink>
           )}
         </h2>
         <PostDate value={date} />
