@@ -27,8 +27,12 @@ const PostBody = styled.section`
   }
 `
 
-const PostDetail = styled.div`
-  display: grid;
+const PostDetail = styled.div.attrs<{ grid: boolean }>(({ grid }) => ({
+  grid,
+}))<{
+  grid: boolean
+}>`
+  display: ${({ grid }) => (grid ? `grid` : `block`)};
   gap: 1rem;
   margin-top: 50px;
 
@@ -96,7 +100,7 @@ const BlogPost: React.FC<Props> = ({ body, date, pictures, tags, title }) => (
         </ul>
       </section>
     ) : undefined}
-    <PostDetail>
+    <PostDetail grid={Boolean(body)}>
       {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
         <PostBody
           dangerouslySetInnerHTML={{
