@@ -20,6 +20,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
       <BlogPost
         body={node.body || null}
         date={node.date}
+        slug={node.slug || null}
         pictures={node.pictures || []}
         tags={node.tags || []}
         title={node.title || null}

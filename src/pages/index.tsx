@@ -12,7 +12,9 @@ const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({ data }) => (
           key={node.slug}
           body={node.body || null}
           date={node.date}
+          permanent={false}
           pictures={node.pictures || []}
+          slug={node.slug || null}
           tags={node.tags || []}
           title={node.title || null}
         />
