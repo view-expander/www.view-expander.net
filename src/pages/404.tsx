@@ -1,15 +1,11 @@
-import { Link } from 'gatsby'
 import React from 'react'
-import Layout from '../components/layout'
 import styled from 'styled-components'
 import ContentHeader from '../components/content-header'
+import EffectedLink from '../components/effected-link'
+import Layout from '../components/layout'
 
 const Wrapper = styled.div`
   margin-top: 100px;
-`
-
-const TopPageLink = styled(Link)`
-  color: inherit;
 `
 
 const NotFoundPage = () => (
@@ -22,7 +18,7 @@ const NotFoundPage = () => (
         <p>
           ページが存在しません。
           <br />
-          <TopPageLink to="/">トップページ</TopPageLink>
+          <EffectedLink to="/">トップページ</EffectedLink>
           をご覧ください。
         </p>
       </div>
