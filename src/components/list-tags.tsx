@@ -1,8 +1,8 @@
-import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { ContentfulTag, Maybe } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import EffectedLink from './effected-link'
 
 const UL = styled.ul`
   display: flex;
@@ -16,39 +16,14 @@ const UL = styled.ul`
 `
 
 const LI = styled.li`
-  position: relative;
   display: inline-block;
   margin-left: 0.5em;
+`
 
+const TagsLink = styled(EffectedLink)`
   &:before {
     content: '#';
   }
-
-  &:after {
-    will-change: left, right;
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 50%;
-    right: 50%;
-    height: 1px;
-    background-color: #6c757d;
-    transition: left 200ms ease-out, right 200ms ease-out;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    &:after {
-      left: 0;
-      right: 0;
-    }
-  }
-`
-
-const TagsLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
 `
 
 const ListTags: React.FC<{
