@@ -5121,6 +5121,34 @@ export type BlogPostQuery = {
   >
 }
 
+export type TagItemsQueryVariables = Exact<{
+  slug: Scalars['String']
+}>
+
+export type TagItemsQuery = {
+  contentfulTag?: Maybe<Pick<ContentfulTag, 'name' | 'slug'>>
+  allContentfulBlogPost: {
+    edges: Array<{
+      node: Pick<ContentfulBlogPost, 'title' | 'slug' | 'date'> & {
+        pictures?: Maybe<
+          Array<
+            Maybe<
+              Pick<
+                ContentfulBlogPostPicturesJsonNode,
+                'height' | 'key' | 'width'
+              >
+            >
+          >
+        >
+        tags?: Maybe<Array<Maybe<Pick<ContentfulTag, 'name' | 'slug'>>>>
+        body?: Maybe<{
+          childMarkdownRemark?: Maybe<Pick<MarkdownRemark, 'html'>>
+        }>
+      }
+    }>
+  }
+}
+
 export type GatsbyContentfulFixedFragment = Pick<
   ContentfulFixed,
   'base64' | 'width' | 'height' | 'src' | 'srcSet'

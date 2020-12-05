@@ -19,15 +19,23 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allContentfulTag(sort: { fields: name }) {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
       site {
         siteMetadata {
           blogPostPagePath
+          tagsPagePath
         }
       }
     }
   `)
 
-  result.data.allContentfulBlogPost.edges.forEach(({ node }) => {
+  result.data.allContentfulBlogPost.edges.forEach(({ node }) =>
     createPage({
       path: `${result.data.site.siteMetadata.blogPostPagePath}/${node.slug}`,
       component: path.resolve(`./src/templates/post/_slug.tsx`),
@@ -35,5 +43,15 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.slug,
       },
     })
-  })
+  )
+
+  result.data.allContentfulTag.edges.forEach(({ node }) =>
+    createPage({
+      path: `${result.data.site.siteMetadata.tagsPagePath}/${node.slug}`,
+      component: path.resolve(`./src/templates/tags/_slug.tsx`),
+      context: {
+        slug: node.slug,
+      },
+    })
+  )
 }
