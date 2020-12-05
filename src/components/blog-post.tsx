@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import ContentHeader from './content-header'
 import ListTags from './list-tags'
 import PostDate from './post-date'
 
@@ -40,24 +41,8 @@ const PostBody = styled.div`
   }
 `
 
-const PostHeader = styled.header`
+const PostHeader = styled(ContentHeader)`
   grid-column: 1 / -1;
-
-  h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1.6rem;
-    font-weight: 500;
-
-    @media (min-width: 992px) {
-      font-size: 2rem;
-    }
-  }
-
-  p {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-  }
 `
 
 const PostLink = styled(Link)`
