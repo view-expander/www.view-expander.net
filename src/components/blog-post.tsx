@@ -1,4 +1,3 @@
-import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
@@ -6,6 +5,7 @@ import { useSiteMetadata } from '../hooks/useSiteMetadata'
 import ContentHeader from './content-header'
 import EffectedLink from './effected-link'
 import ListTags from './list-tags'
+import Pictures from './pictures'
 import PostDate from './post-date'
 
 type Props = Required<
@@ -111,15 +111,24 @@ const BlogPost: React.FC<Props> = ({
       </PostHeader>
       {pictures && pictures.length > 0 ? (
         <PostPictures>
-          <ul>
-            {pictures.map(item =>
-              item ? (
-                <li key={item.key}>
-                  {item.key}: {item.width}x{item.height}
-                </li>
-              ) : undefined
-            )}
-          </ul>
+          <Pictures
+            value={pictures.reduce<PhotoMeta[]>((memo, item) => {
+              if (!item || !item.key) {
+                return memo
+              }
+
+              const { height, key, width } = item
+
+              return [
+                ...memo,
+                {
+                  height: Math.min(height || 0, 0),
+                  key,
+                  width: Math.min(width || 0, 0),
+                },
+              ]
+            }, [])}
+          />
         </PostPictures>
       ) : undefined}
       {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
