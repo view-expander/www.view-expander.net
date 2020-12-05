@@ -12,14 +12,25 @@ type Props = Required<
 }
 
 const PostArticle = styled.article`
+  display: grid;
+  column-gap: 1rem;
   margin-top: 100px;
+
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 33.33%;
+  }
 `
 
-const PostBody = styled.section`
+const PostBody = styled.div`
+  margin-top: 50px;
   text-align: justify;
 
   & > :first-child {
     margin-top: 0;
+  }
+
+  &:last-child {
+    grid-column: 1 / -1;
   }
 
   p {
@@ -28,21 +39,9 @@ const PostBody = styled.section`
   }
 `
 
-const PostDetail = styled.div.attrs<{ grid: boolean }>(({ grid }) => ({
-  grid,
-}))<{
-  grid: boolean
-}>`
-  display: ${({ grid }) => (grid ? `grid` : `block`)};
-  gap: 1rem;
-  margin-top: 50px;
-
-  @media (min-width: 992px) {
-    grid-template-columns: 66.67% 1fr;
-  }
-`
-
 const PostHeader = styled.header`
+  grid-column: 1 / -1;
+
   h2 {
     margin-top: 0;
     margin-bottom: 0;
@@ -65,7 +64,23 @@ const PostLink = styled(Link)`
   text-decoration: none;
 `
 
+const PostPictures = styled.div`
+  grid-column: 1 / -1;
+  margin-top: 50px;
+`
+
 const PostTags = styled.footer`
+  margin-top: 1rem;
+
+  @media (min-width: 992px) {
+    margin-top: 50px;
+  }
+
+  &:nth-child(3) {
+    grid-column: 1 / -1;
+    margin-top: 50px;
+  }
+
   ul {
     display: flex;
     flex-wrap: wrap;
@@ -113,7 +128,7 @@ const BlogPost: React.FC<Props> = ({
         <PostDate value={date} />
       </PostHeader>
       {pictures && pictures.length > 0 ? (
-        <section>
+        <PostPictures>
           <ul>
             {pictures.map(item =>
               item ? (
@@ -123,34 +138,32 @@ const BlogPost: React.FC<Props> = ({
               ) : undefined
             )}
           </ul>
-        </section>
+        </PostPictures>
       ) : undefined}
-      <PostDetail grid={Boolean(body)}>
-        {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
-          <PostBody
-            dangerouslySetInnerHTML={{
-              __html: body.childMarkdownRemark.html,
-            }}
-          />
-        ) : undefined}
-        {tags && tags.length > 0 ? (
-          <PostTags>
-            <ul>
-              {tags
-                .sort((a, b) =>
-                  a?.slug && b?.slug ? (a.slug < b.slug ? -1 : 1) : 0
-                )
-                .map(item =>
-                  item ? (
-                    <li key={item.slug}>
-                      <a href={`#${item.slug}`}>{item.name}</a>
-                    </li>
-                  ) : undefined
-                )}
-            </ul>
-          </PostTags>
-        ) : undefined}
-      </PostDetail>
+      {body && body.childMarkdownRemark && body.childMarkdownRemark.html ? (
+        <PostBody
+          dangerouslySetInnerHTML={{
+            __html: body.childMarkdownRemark.html,
+          }}
+        />
+      ) : undefined}
+      {tags && tags.length > 0 ? (
+        <PostTags>
+          <ul>
+            {tags
+              .sort((a, b) =>
+                a?.slug && b?.slug ? (a.slug < b.slug ? -1 : 1) : 0
+              )
+              .map(item =>
+                item ? (
+                  <li key={item.slug}>
+                    <a href={`#${item.slug}`}>{item.name}</a>
+                  </li>
+                ) : undefined
+              )}
+          </ul>
+        </PostTags>
+      ) : undefined}
     </PostArticle>
   )
 }
