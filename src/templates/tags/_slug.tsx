@@ -1,19 +1,13 @@
-import { graphql, Link, PageProps } from 'gatsby'
+import { graphql, PageProps } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { TagItemsQuery } from '../../../graphql-types'
 import BlogPost from '../../components/blog-post'
 import EffectedLink from '../../components/effected-link'
 import Layout from '../../components/layout'
+import NavHeading from '../../components/nav-heading'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
-
-const Nav = styled.nav`
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  color: #6c757d;
-`
 
 const Separator = styled.span`
   display: inline-block;
@@ -41,11 +35,11 @@ const TagItemsTemplate: React.FC<PageProps<TagItemsQuery>> = ({ data }) => {
   return (
     <Layout>
       <SEO title={`Tags / ${tag.name}`} />
-      <Nav>
+      <NavHeading>
         <EffectedLink to={`/${siteMetadata?.tagsPagePath}`}>Tags</EffectedLink>
         <Separator aria-hidden>/</Separator>
         <CurrentTag>{tag.name}</CurrentTag>
-      </Nav>
+      </NavHeading>
       {data.allContentfulBlogPost.edges.map(({ node }) =>
         node ? (
           <BlogPost
