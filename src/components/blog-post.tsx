@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
-import PostDate from './PostDate'
+import PostDate from './post-date'
 
 type Props = Required<
   ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node']
