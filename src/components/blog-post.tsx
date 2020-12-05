@@ -106,7 +106,7 @@ const BlogPost: React.FC<Props> = ({
           {permanent || !slug ? (
             title
           ) : (
-            <PostLink to={`${siteMetadata?.blogPostPagePath}/${slug}`}>
+            <PostLink to={`/${siteMetadata?.blogPostPagePath}/${slug}`}>
               {title}
             </PostLink>
           )}
