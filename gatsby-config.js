@@ -11,6 +11,7 @@ module.exports = {
     instagram: `haribote`,
     twitter: `haribote_nobody`,
     blogPostPagePath: `post`,
+    tagsPagePath: `tags`,
   },
   plugins: [
     `gatsby-plugin-graphql-codegen`,
