@@ -63,7 +63,7 @@ const ListTags: React.FC<{
         .map(item =>
           item ? (
             <LI key={item.slug}>
-              <TagsLink to={`${siteMetadata?.tagsPagePath}/${item.slug}`}>
+              <TagsLink to={`/${siteMetadata?.tagsPagePath}/${item.slug}`}>
                 {item.name}
               </TagsLink>
             </LI>
