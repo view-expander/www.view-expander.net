@@ -1,9 +1,9 @@
 import { graphql, PageProps } from 'gatsby'
 import React from 'react'
-import { BlogPostQuery } from '../../graphql-types'
-import BlogPost from '../components/blog-post'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import { BlogPostQuery } from '../../../graphql-types'
+import BlogPost from '../../components/blog-post'
+import Layout from '../../components/layout'
+import SEO from '../../components/seo'
 
 const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
   const node = data.contentfulBlogPost
