@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 import ContentHeader from './content-header'
+import EffectedLink from './effected-link'
 import ListTags from './list-tags'
 import PostDate from './post-date'
 
@@ -45,9 +46,8 @@ const PostHeader = styled(ContentHeader)`
   grid-column: 1 / -1;
 `
 
-const PostLink = styled(Link)`
+const PostLink = styled(EffectedLink)`
   color: inherit;
-  text-decoration: none;
 `
 
 const PostPictures = styled.div`
@@ -81,10 +81,6 @@ const PostTags = styled.footer`
   li {
     display: inline-block;
     margin-left: 0.5em;
-
-    &:before {
-      content: '#';
-    }
   }
 `
 
