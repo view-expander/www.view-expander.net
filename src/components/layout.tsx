@@ -47,10 +47,6 @@ const Container = styled.div`
   @media (min-width: 1400px) {
     max-width: 1320px;
   }
-
-  main {
-    margin-top: 100px;
-  }
 `
 
 const CONTAINER_ID = 'container'
