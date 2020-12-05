@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { IndexPageQuery } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import ListTags from './list-tags'
 import PostDate from './post-date'
 
 type Props = Required<
@@ -147,21 +148,9 @@ const BlogPost: React.FC<Props> = ({
           }}
         />
       ) : undefined}
-      {tags && tags.length > 0 ? (
+      {Array.isArray(tags) && tags.length > 0 ? (
         <PostTags>
-          <ul>
-            {tags
-              .sort((a, b) =>
-                a?.slug && b?.slug ? (a.slug < b.slug ? -1 : 1) : 0
-              )
-              .map(item =>
-                item ? (
-                  <li key={item.slug}>
-                    <a href={`#${item.slug}`}>{item.name}</a>
-                  </li>
-                ) : undefined
-              )}
-          </ul>
+          <ListTags value={tags} />
         </PostTags>
       ) : undefined}
     </PostArticle>
