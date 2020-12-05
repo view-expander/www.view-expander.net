@@ -5099,6 +5099,14 @@ export type IndexPageQuery = {
   }
 }
 
+export type TagsIndexPageQueryVariables = Exact<{ [key: string]: never }>
+
+export type TagsIndexPageQuery = {
+  allContentfulTag: {
+    edges: Array<{ node: Pick<ContentfulTag, 'name' | 'slug'> }>
+  }
+}
+
 export type BlogPostQueryVariables = Exact<{
   slug: Scalars['String']
 }>
