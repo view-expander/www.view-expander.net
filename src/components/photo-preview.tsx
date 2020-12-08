@@ -44,6 +44,16 @@ const PhotoPreview: React.FC<Props> = ({ meta }) => {
   if (imgixClient) {
     const { height, key, width } = meta
     const aspectRatio = height / width
+    const src = imgixClient.buildURL(createPhotoPath(key), {
+      auto: 'format',
+      fit: 'clip',
+      colorquant: 2,
+      sat: -100,
+      gam: -80,
+      blur: 20,
+      w: WIDTHS[WIDTHS.length - 1],
+      h: WIDTHS[WIDTHS.length - 1],
+    })
     const srcset = imgixClient.buildSrcSet(
       createPhotoPath(key),
       {
@@ -68,6 +78,7 @@ const PhotoPreview: React.FC<Props> = ({ meta }) => {
         aria-hidden
         aspectRatio={aspectRatio}
         height={height}
+        src={src}
         srcSet={srcset}
         width={width}
       />
