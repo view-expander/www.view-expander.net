@@ -12,6 +12,7 @@ module.exports = {
     twitter: `haribote_nobody`,
     blogPostPagePath: `post`,
     tagsPagePath: `tags`,
+    photoPath: process.env.GATSBY_IMGIX_PATH,
   },
   plugins: [
     `gatsby-plugin-graphql-codegen`,
