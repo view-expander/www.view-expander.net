@@ -9,7 +9,7 @@ const Pictures: React.FC<Props> = ({ value }) => (
   <>
     {value.map(({ height, key, width }) =>
       height !== null && key !== null && width !== null ? (
-        <Photo key={key} meta={{ height, key, width }} />
+        <Photo key={key} inView={false} meta={{ height, key, width }} />
       ) : undefined
     )}
   </>

@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import PhotoPreview from './photo-preview'
 
 type Props = {
+  inView?: boolean
   meta: PhotoMeta
 }
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
   margin-top: 80px;
 
   &:first-child {
@@ -14,14 +17,14 @@ const Wrapper = styled.div`
   }
 `
 
-const Photo: React.FC<Props> = ({ meta }) => {
-  const [status] = useState<0 | 1 | 2>(0)
-
-  return (
-    <Wrapper>
-      {status === 0 ? `${meta.key}: ${meta.width}x${meta.height}` : undefined}
-    </Wrapper>
-  )
-}
+const Photo: React.FC<Props> = ({ inView, meta }) => (
+  <Wrapper>
+    {Boolean(inView) ? (
+      `${meta.key}: ${meta.width}x${meta.height}`
+    ) : (
+      <PhotoPreview meta={meta} />
+    )}
+  </Wrapper>
+)
 
 export default Photo

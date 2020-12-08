@@ -118,7 +118,6 @@ const BlogPost: React.FC<Props> = ({
               }
 
               const { height, key, width } = item
-              console.log(key, width, height)
 
               return [
                 ...memo,
