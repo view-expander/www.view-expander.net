@@ -66,22 +66,6 @@ const PostTags = styled.footer`
     grid-column: 1 / -1;
     margin-top: 50px;
   }
-
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: -0.5em;
-    padding: 0;
-    list-style: none;
-    color: #6c757d;
-  }
-
-  li {
-    display: inline-block;
-    margin-left: 0.5em;
-  }
 `
 
 const BlogPost: React.FC<Props> = ({

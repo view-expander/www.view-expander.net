@@ -6,6 +6,7 @@ import EffectedLink from './effected-link'
 
 const UL = styled.ul`
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 0;
   margin-bottom: 0;
@@ -13,6 +14,11 @@ const UL = styled.ul`
   padding: 0;
   list-style: none;
   color: #6c757d;
+
+  &:after {
+    content: '';
+    width: 20%;
+  }
 `
 
 const LI = styled.li`
