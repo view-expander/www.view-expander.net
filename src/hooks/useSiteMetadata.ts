@@ -14,7 +14,6 @@ export const useSiteMetadata = () => {
           tagsPagePath
           twitter
           typekitId
-          photoPath
         }
       }
     }
