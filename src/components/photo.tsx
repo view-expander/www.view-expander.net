@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 type Props = {
@@ -8,12 +8,20 @@ type Props = {
 const Wrapper = styled.div`
   display: flex;
   margin-top: 80px;
+
+  &:first-child {
+    margin-top: 0;
+  }
 `
 
-const Photo: React.FC<Props> = ({ meta }) => (
-  <Wrapper>
-    {meta.key}: {meta.width}x{meta.height}
-  </Wrapper>
-)
+const Photo: React.FC<Props> = ({ meta }) => {
+  const [status] = useState<0 | 1 | 2>(0)
+
+  return (
+    <Wrapper>
+      {status === 0 ? `${meta.key}: ${meta.width}x${meta.height}` : undefined}
+    </Wrapper>
+  )
+}
 
 export default Photo
