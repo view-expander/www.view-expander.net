@@ -10,9 +10,17 @@ const WIDTHS = [543, 688, 928, 1288]
 export const createPhotoPath = (key: string) =>
   `${process.env.GATSBY_IMGIX_PATH}/${key}`
 
+const getObjectTypeName = (value: unknown): string => {
+  return Object.prototype.toString.call(value)
+}
+
 export const imgixClient = IMGIX_DOMAIN
   ? new ImgixClient({ domain: IMGIX_DOMAIN })
   : undefined
+
+export const isString = (value: unknown): value is string => {
+  return getObjectTypeName(value) === '[object String]'
+}
 
 export const getImageSources = (
   key: string,
