@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useInView } from 'react-intersection-observer'
 import styled from 'styled-components'
+import { PHOTO_STATUS, usePhotoStatus } from '../hooks/usePhotoStatus'
+import PhotoHiRes from './photo-hi-res'
 import PhotoPreview from './photo-preview'
 
 type Props = {
@@ -18,24 +20,37 @@ const Wrapper = styled.div`
   }
 `
 
-const P = styled.p`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`
-
 const Photo: React.FC<Props> = ({ meta }) => {
-  const [ref, inView] = useInView()
+  const [status, setStatus] = usePhotoStatus()
+  const [ref, inView] = useInView({ triggerOnce: true })
+  const onLoading = useCallback(() => setStatus(PHOTO_STATUS.LOADING), [
+    setStatus,
+  ])
+  const onLoaded = useCallback(
+    () => requestAnimationFrame(() => setStatus(PHOTO_STATUS.LOADED)),
+    [setStatus]
+  )
+  const onStable = useCallback(
+    () =>
+      requestAnimationFrame(() => {
+        setStatus(PHOTO_STATUS.STABLE)
+      }),
+    [setStatus]
+  )
 
   return (
     <Wrapper ref={ref}>
-      <PhotoPreview aria-hidden={inView} meta={meta} />
+      {status !== PHOTO_STATUS.STABLE ? (
+        <PhotoPreview aria-hidden meta={meta} />
+      ) : undefined}
       {inView ? (
-        <P>
-          {meta.key}: {meta.width}x{meta.height}
-        </P>
+        <PhotoHiRes
+          meta={meta}
+          onLoading={onLoading}
+          onLoaded={onLoaded}
+          onStable={onStable}
+          status={status}
+        />
       ) : undefined}
     </Wrapper>
   )
