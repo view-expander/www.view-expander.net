@@ -16,13 +16,7 @@ const PhotoPreview: React.FC<Props> = ({ meta }) => {
     blur: 20,
   })
 
-  return (
-    <PhotoImage
-      alt=""
-      aria-hidden
-      {...{ aspectRatio, height, src, srcSet, width }}
-    />
-  )
+  return <PhotoImage alt="" {...{ aspectRatio, height, src, srcSet, width }} />
 }
 
 export default PhotoPreview

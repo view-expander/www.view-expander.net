@@ -1,9 +1,9 @@
 import React from 'react'
+import { useInView } from 'react-intersection-observer'
 import styled from 'styled-components'
 import PhotoPreview from './photo-preview'
 
 type Props = {
-  inView?: boolean
   meta: PhotoMeta
 }
 
@@ -26,15 +26,19 @@ const P = styled.p`
   right: 0;
 `
 
-const Photo: React.FC<Props> = ({ inView, meta }) => (
-  <Wrapper>
-    <PhotoPreview meta={meta} />
-    {Boolean(inView) ? (
-      <P>
-        {meta.key}: {meta.width}x{meta.height}
-      </P>
-    ) : undefined}
-  </Wrapper>
-)
+const Photo: React.FC<Props> = ({ meta }) => {
+  const [ref, inView] = useInView()
+
+  return (
+    <Wrapper ref={ref}>
+      <PhotoPreview aria-hidden={inView} meta={meta} />
+      {inView ? (
+        <P>
+          {meta.key}: {meta.width}x{meta.height}
+        </P>
+      ) : undefined}
+    </Wrapper>
+  )
+}
 
 export default Photo
