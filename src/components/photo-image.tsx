@@ -4,7 +4,10 @@ type ImgAttrs = {
   aspectRatio: number
 }
 
-const PhotoImage = styled.img.attrs<ImgAttrs>(attrs => attrs)<ImgAttrs>`
+const PhotoImage = styled.img.attrs<ImgAttrs>(attrs => ({
+  ...attrs,
+  alt: '',
+}))<ImgAttrs>`
   object-fit: contain;
   max-width: calc(100vw - 2rem);
   max-height: calc((100vw - 2rem) * ${({ aspectRatio }) => aspectRatio});
