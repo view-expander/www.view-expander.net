@@ -27,14 +27,18 @@ const Photo: React.FC<Props> = ({ meta }) => {
     setStatus,
   ])
   const onLoaded = useCallback(
-    () => requestAnimationFrame(() => setStatus(PHOTO_STATUS.LOADED)),
+    () =>
+      requestAnimationFrame(() => {
+        const $html = document.querySelector('html')
+        const toBeStable =
+          $html && $html.getAttribute('data-browser') === 'ie11'
+
+        return setStatus(toBeStable ? PHOTO_STATUS.STABLE : PHOTO_STATUS.LOADED)
+      }),
     [setStatus]
   )
   const onStable = useCallback(
-    () =>
-      requestAnimationFrame(() => {
-        setStatus(PHOTO_STATUS.STABLE)
-      }),
+    () => requestAnimationFrame(() => setStatus(PHOTO_STATUS.STABLE)),
     [setStatus]
   )
 
