@@ -8,6 +8,19 @@
 
 require('./src/styles/index.css')
 
+const detectBrowser = async () => {
+  const $html = document.querySelector('html')
+
+  if (!$html) {
+    return
+  }
+
+  // IE11
+  if (!!window.MSInputMethodContext && !!document.documentMode) {
+    $html.setAttribute('data-browser', 'ie11')
+  }
+}
+
 const loadPolyfills = async () => {
   if (typeof window.IntersectionObserver === 'undefined') {
     await import('intersection-observer')
@@ -15,7 +28,7 @@ const loadPolyfills = async () => {
 }
 
 const main = () => {
-  return Promise.all([loadPolyfills()])
+  return Promise.all([detectBrowser(), loadPolyfills()])
 }
 
 main()
