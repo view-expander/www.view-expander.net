@@ -53,13 +53,7 @@ const PhotoHiRes: React.FC<Props> = ({
   const isLoading = status === PHOTO_STATUS.LOADING
   const isStable = status === PHOTO_STATUS.STABLE
   const attrs = getPhotoAttributes(meta)
-  const onTransitionEnd = useCallback(
-    ev => {
-      console.log(ev)
-      onStable()
-    },
-    [onStable]
-  )
+  const onTransitionEnd = useCallback(() => onStable(), [onStable])
 
   useEffect(() => {
     const { src, srcSet } = attrs
