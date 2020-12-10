@@ -6,13 +6,13 @@ type Props = {
 }
 
 const Pictures: React.FC<Props> = ({ value }) => (
-  <div>
+  <>
     {value.map(({ height, key, width }) =>
       height !== null && key !== null && width !== null ? (
         <Photo key={key} meta={{ height, key, width }} />
       ) : undefined
     )}
-  </div>
+  </>
 )
 
 export default Pictures
