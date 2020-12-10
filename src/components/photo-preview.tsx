@@ -8,6 +8,7 @@ type Props = {
 
 const PhotoPreview: React.FC<Props> = ({ meta }) => (
   <PhotoImage
+    aria-hidden
     {...getPhotoAttributes(meta, {
       colorquant: 2,
       sat: -100,
