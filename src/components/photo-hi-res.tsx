@@ -39,6 +39,14 @@ const StyledPhotoImage = styled(PhotoImage).attrs<{
   &.is--stable {
     opacity: 1;
   }
+
+  [data-browser='ie11'] & {
+    display: none;
+
+    &.is--stable {
+      display: block;
+    }
+  }
 `
 
 const PhotoHiRes: React.FC<Props> = ({
