@@ -28,10 +28,15 @@ const PhotoImage = styled.img.attrs<ImgAttrs>(attrs => ({
   }
 
   @media (min-width: 1200px) {
-    width: 100%;
-    height: calc(100% * ${({ aspectRatio }) => aspectRatio});
+    width: cal(1140px - 2rem);
+    height: calc((1140px - 2rem) * ${({ aspectRatio }) => aspectRatio});
     max-width: 95vh;
     max-height: calc(95vh * ${({ aspectRatio }) => aspectRatio});
+  }
+
+  @media (min-width: 1400px) {
+    width: cal(1320px - 2rem);
+    height: calc((1320px - 2rem) * ${({ aspectRatio }) => aspectRatio});
   }
 `
 
