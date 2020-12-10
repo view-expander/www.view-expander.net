@@ -15,7 +15,7 @@ const loadPolyfills = async () => {
 }
 
 const main = () => {
-  loadPolyfills().then(() => console.log(window.IntersectionObserver))
+  return Promise.all([loadPolyfills()])
 }
 
 main()
