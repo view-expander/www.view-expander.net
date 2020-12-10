@@ -19,12 +19,22 @@ const StyledPhotoImage = styled(PhotoImage).attrs<{
   isLoaded: boolean
   isStable: boolean
 }>`
-  will-change: opacity;
-  position: ${({ isStable }) => (isStable ? 'static' : 'absolute')};
-  width: 100%;
-  height: 100%;
-  opacity: ${({ isLoaded, isStable }) => (isLoaded || isStable ? 1 : 0)};
+  will-change: width, height, opacity;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
   transition: opacity 500ms ease-out 200ms;
+
+  &.is--loading,
+  &.is--loaded,
+  &.is--stable {
+    visibility: visible;
+  }
+
+  &.is--loaded,
+  &.is--stable {
+    opacity: 1;
+  }
 `
 
 const PhotoHiRes: React.FC<Props> = ({
@@ -75,6 +85,15 @@ const PhotoHiRes: React.FC<Props> = ({
 
   return isLoading || isLoaded || isStable ? (
     <StyledPhotoImage
+      className={
+        isLoading
+          ? 'is--loading'
+          : isLoaded
+          ? 'is--loaded'
+          : isStable
+          ? 'is--stable'
+          : undefined
+      }
       {...getPhotoAttributes(meta)}
       isLoaded={isLoaded}
       isStable={isStable}
