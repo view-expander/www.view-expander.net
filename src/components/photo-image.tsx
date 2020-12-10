@@ -9,6 +9,7 @@ const PhotoImage = styled.img.attrs<ImgAttrs>(attrs => ({
   alt: '',
 }))<ImgAttrs>`
   object-fit: contain;
+  display: block;
   max-width: calc(100vw - 2rem);
   max-height: calc((100vw - 2rem) * ${({ aspectRatio }) => aspectRatio});
 
