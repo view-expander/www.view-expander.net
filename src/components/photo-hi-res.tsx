@@ -39,19 +39,6 @@ const StyledPhotoImage = styled(PhotoImage).attrs<{
   &.is--stable {
     opacity: 1;
   }
-
-  @media all and (-ms-high-contrast: none) {
-    *::-ms-backdrop,
-    & {
-      display: none;
-    } /* IE11 */
-
-    *::-ms-backdrop,
-    &.is--loaded,
-    &.is--stable {
-      display: block;
-    }
-  }
 `
 
 const PhotoHiRes: React.FC<Props> = ({
