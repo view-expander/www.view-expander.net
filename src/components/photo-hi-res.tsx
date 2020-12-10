@@ -20,10 +20,14 @@ const StyledPhotoImage = styled(PhotoImage).attrs<{
   isStable: boolean
 }>`
   will-change: width, height, opacity;
-  position: absolute;
   opacity: 0;
   visibility: hidden;
   transition: opacity 500ms ease-out 200ms;
+
+  &.is--loading,
+  &.is--loaded {
+    position: absolute;
+  }
 
   &.is--loading,
   &.is--loaded,
@@ -49,7 +53,13 @@ const PhotoHiRes: React.FC<Props> = ({
   const isLoading = status === PHOTO_STATUS.LOADING
   const isStable = status === PHOTO_STATUS.STABLE
   const attrs = getPhotoAttributes(meta)
-  const onTransitionEnd = useCallback(() => onStable(), [onStable])
+  const onTransitionEnd = useCallback(
+    ev => {
+      console.log(ev)
+      onStable()
+    },
+    [onStable]
+  )
 
   useEffect(() => {
     const { src, srcSet } = attrs
