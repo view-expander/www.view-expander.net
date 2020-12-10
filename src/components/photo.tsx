@@ -40,7 +40,9 @@ const Photo: React.FC<Props> = ({ meta }) => {
 
   return (
     <Wrapper ref={ref}>
-      <PhotoPreview aria-hidden meta={meta} />
+      {status !== PHOTO_STATUS.STABLE ? (
+        <PhotoPreview aria-hidden meta={meta} />
+      ) : undefined}
       {inView ? (
         <PhotoHiRes
           meta={meta}
