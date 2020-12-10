@@ -6,4 +6,16 @@
 
 // You can delete this file if you're not using it
 
-require('./src/styles/index.css')
+import('./src/styles/index.css')
+
+const loadPolyfills = async () => {
+  if (typeof window.IntersectionObserver === 'undefined') {
+    await import('intersection-observer')
+  }
+}
+
+const main = () => {
+  loadPolyfills().then(() => console.log(window.IntersectionObserver))
+}
+
+main()
