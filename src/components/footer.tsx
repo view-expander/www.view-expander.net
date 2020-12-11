@@ -20,31 +20,115 @@ const SNSAccounts = styled.div`
   justify-content: space-between;
 `
 
-const LinkToSNS = styled.a.attrs(attrs => ({ ...attrs, target: '_blank' }))`
-  will-change: color;
-  display: inline-block;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  padding: 0.5rem;
-  color: #6c757d;
-  text-decoration: none;
-  transition: color 200ms ease-out;
-
-  svg {
-    will-change: transform;
+const createStyledSnsIcon = (component: Parameters<typeof styled>[0]) =>
+  styled(component).attrs(attrs => ({
+    ...attrs,
+    style: { fontSize: 32 },
+  }))`
     vertical-align: top;
-    transform: scale(0.75, 0.75);
-    transform-origin: 50% 50%;
-    transition: transform 200ms ease-out;
+  `
+
+const StyledInstagramIcon = createStyledSnsIcon(InstagramIcon)
+const StyledYouTubeIcon = createStyledSnsIcon(YouTubeIcon)
+const StyledTwitterIcon = createStyledSnsIcon(TwitterIcon)
+
+const LinkToSNS = styled.a.attrs(attrs => ({ ...attrs, target: '_blank' }))`
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 8px;
+  color: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+`
+
+const LinkToInstagram = styled(LinkToSNS)`
+  position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &:before {
+    will-change: opacity;
+    z-index: -1;
+    background-color: #ffffff;
+    transition: opacity 200ms ease-out;
+  }
+
+  &:after {
+    z-index: -2;
+    background: linear-gradient(
+      45deg,
+      #f09433 0%,
+      #e6683c 25%,
+      #dc2743 50%,
+      #cc2366 75%,
+      #bc1888 100%
+    );
+    border-radius: 9px;
+  }
+
+  ${StyledInstagramIcon} {
+    will-change: fill;
+    fill: currentColor;
+    transition: fill 200ms ease-out;
   }
 
   &:hover,
   &:active,
   &:focus {
-    color: inherit;
+    &:before {
+      opacity: 0;
+    }
 
-    svg {
-      transform: scale(1, 1);
+    ${StyledInstagramIcon} {
+      will-change: fill;
+      fill: #ffffff;
+      transition: fill 200ms ease-out;
+    }
+  }
+`
+
+const LinkToYouTube = styled(LinkToSNS)`
+  ${StyledYouTubeIcon} {
+    will-change: fill;
+    fill: currentColor;
+    transition: fill 200ms ease-out;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    ${StyledYouTubeIcon} {
+      fill: #ff0000;
+    }
+  }
+`
+
+const LinkToTwitter = styled(LinkToSNS)`
+  will-change: background-color;
+  background-color: #ffffff;
+  transition: background-color 200ms ease-out;
+
+  ${StyledTwitterIcon} {
+    will-change: fill;
+    fill: currentColor;
+    transition: fill 200ms ease-out;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #1da1f2;
+
+    ${StyledTwitterIcon} {
+      fill: #ffffff;
     }
   }
 `
@@ -62,19 +146,19 @@ const Footer: React.FC = () => {
     <StyledFooter>
       <FooterRow>
         <SNSAccounts>
-          <LinkToSNS
+          <LinkToInstagram
             href={`https://www.instagram.com/${siteMetadata?.instagram}`}
           >
-            <InstagramIcon style={{ fontSize: 32 }} />
-          </LinkToSNS>
-          <LinkToSNS
+            <StyledInstagramIcon />
+          </LinkToInstagram>
+          <LinkToYouTube
             href={`https://www.youtube.com/channel/${siteMetadata?.youtube}`}
           >
-            <YouTubeIcon style={{ fontSize: 32 }} />
-          </LinkToSNS>
-          <LinkToSNS href={`https://twitter.com/${siteMetadata?.twitter}`}>
-            <TwitterIcon style={{ fontSize: 32 }} />
-          </LinkToSNS>
+            <StyledYouTubeIcon style={{ fontSize: 32 }} />
+          </LinkToYouTube>
+          <LinkToTwitter href={`https://twitter.com/${siteMetadata?.twitter}`}>
+            <StyledTwitterIcon style={{ fontSize: 32 }} />
+          </LinkToTwitter>
         </SNSAccounts>
       </FooterRow>
       <FooterRow>
