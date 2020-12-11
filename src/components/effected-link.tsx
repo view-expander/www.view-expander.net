@@ -13,7 +13,7 @@ const EffectedLink = styled(Link).attrs<{ color?: string }>(
     will-change: left, right;
     content: '';
     position: absolute;
-    bottom: -1px;
+    bottom: 1px;
     left: 50%;
     right: 50%;
     height: 1px;
