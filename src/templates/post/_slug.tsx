@@ -1,17 +1,43 @@
-import { graphql, Link, PageProps } from 'gatsby'
+import { graphql, PageProps } from 'gatsby'
 import React from 'react'
 import { BlogPostQuery } from '../../../graphql-types'
 import BlogPost from '../../components/blog-post'
 import Layout from '../../components/layout'
+import NavFooting from '../../components/nav-footing'
 import SEO from '../../components/seo'
+import { useSiteMetadata } from '../../hooks/useSiteMetadata'
+import { isStringOfNotEmpty } from '../../libs'
+
+const createNavItem = (
+  path: string,
+  item: { slug?: string | null; title?: string | null } | undefined
+) => {
+  if (!isStringOfNotEmpty(path)) {
+    throw new Error('empty path')
+  }
+
+  if (!item) {
+    return
+  }
+
+  const slug = item.slug || ''
+  const title = item.title || undefined
+
+  return {
+    path: `/${path}/${slug}`,
+    title,
+  }
+}
 
 const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
+  const siteMetadata = useSiteMetadata()
   const node = data.contentfulBlogPost
 
-  if (!node) {
+  if (!siteMetadata?.blogPostPagePath || !node) {
     return null
   }
 
+  const { blogPostPagePath } = siteMetadata
   const description = node.body?.childMarkdownRemark?.excerpt || undefined
   const allContentfulBlogPost = data.allContentfulBlogPost.edges.map(
     ({ node }) => ({ ...node })
@@ -39,18 +65,10 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
         tags={node.tags || []}
         title={node.title || null}
       />
-      <nav>
-        {newer ? (
-          <p>
-            <Link to={`/post/${newer.slug}`}>Newer: {newer.title}</Link>
-          </p>
-        ) : undefined}
-        {older ? (
-          <p>
-            <Link to={`/post/${older.slug}`}>Older: {older.title}</Link>
-          </p>
-        ) : undefined}
-      </nav>
+      <NavFooting
+        newer={createNavItem(blogPostPagePath, newer)}
+        older={createNavItem(blogPostPagePath, older)}
+      />
     </Layout>
   )
 }
