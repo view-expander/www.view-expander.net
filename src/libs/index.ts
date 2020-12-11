@@ -18,9 +18,11 @@ export const imgixClient = IMGIX_DOMAIN
   ? new ImgixClient({ domain: IMGIX_DOMAIN })
   : undefined
 
-export const isString = (value: unknown): value is string => {
-  return getObjectTypeName(value) === '[object String]'
-}
+export const isString = (value: unknown): value is string =>
+  getObjectTypeName(value) === '[object String]'
+
+export const isStringOfNotEmpty = (value: unknown): value is string =>
+  isString(value) && value.length > 0
 
 export const getImageSources = (
   key: string,
