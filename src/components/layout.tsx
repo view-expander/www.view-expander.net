@@ -13,7 +13,7 @@ const Container = styled.div`
   padding-right: 1rem;
   padding-left: 1rem;
   margin-top: 80px;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
   margin-right: auto;
   margin-left: auto;
   color: #212529;
