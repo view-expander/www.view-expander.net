@@ -1,4 +1,4 @@
-import { graphql, PageProps } from 'gatsby'
+import { graphql, Link, PageProps } from 'gatsby'
 import React from 'react'
 import { BlogPostQuery } from '../../../graphql-types'
 import BlogPost from '../../components/blog-post'
@@ -13,6 +13,20 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
   }
 
   const description = node.body?.childMarkdownRemark?.excerpt || undefined
+  const allContentfulBlogPost = data.allContentfulBlogPost.edges.map(
+    ({ node }) => ({ ...node })
+  )
+  const indexOfCurrentNode = allContentfulBlogPost.findIndex(
+    ({ slug }) => slug === node.slug
+  )
+  const newer =
+    indexOfCurrentNode > 0
+      ? allContentfulBlogPost[indexOfCurrentNode - 1]
+      : undefined
+  const older =
+    indexOfCurrentNode < allContentfulBlogPost.length - 1
+      ? allContentfulBlogPost[indexOfCurrentNode + 1]
+      : undefined
 
   return (
     <Layout>
@@ -25,6 +39,18 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
         tags={node.tags || []}
         title={node.title || null}
       />
+      <nav>
+        {newer ? (
+          <p>
+            <Link to={`/post/${newer.slug}`}>Newer: {newer.title}</Link>
+          </p>
+        ) : undefined}
+        {older ? (
+          <p>
+            <Link to={`/post/${older.slug}`}>Older: {older.title}</Link>
+          </p>
+        ) : undefined}
+      </nav>
     </Layout>
   )
 }
@@ -48,6 +74,14 @@ export const query = graphql`
         childMarkdownRemark {
           html
           excerpt(truncate: true)
+        }
+      }
+    }
+    allContentfulBlogPost(sort: { fields: date, order: DESC }) {
+      edges {
+        node {
+          slug
+          title
         }
       }
     }
