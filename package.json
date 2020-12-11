@@ -56,5 +56,9 @@
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
-  "browserslist": [">=1%", "not dead", "IE 11"]
+  "browserslist": [
+    ">=1%",
+    "not dead",
+    "IE 11"
+  ]
 }
