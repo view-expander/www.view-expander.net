@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
     "@types/react-helmet": "^6.1.0",
     "@types/styled-components": "^5.1.4",
     "babel-plugin-styled-components": "^1.12.0",
