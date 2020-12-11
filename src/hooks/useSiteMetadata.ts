@@ -11,6 +11,7 @@ export const useSiteMetadata = () => {
           description
           title
           instagram
+          youtube
           tagsPagePath
           twitter
           typekitId

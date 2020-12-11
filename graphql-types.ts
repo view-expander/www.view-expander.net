@@ -4253,6 +4253,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___typekitId'
   | 'siteMetadata___instagram'
   | 'siteMetadata___twitter'
+  | 'siteMetadata___youtube'
   | 'siteMetadata___blogPostPagePath'
   | 'siteMetadata___tagsPagePath'
   | 'port'
@@ -5010,6 +5011,7 @@ export type SiteSiteMetadata = {
   typekitId?: Maybe<Scalars['String']>
   instagram?: Maybe<Scalars['String']>
   twitter?: Maybe<Scalars['String']>
+  youtube?: Maybe<Scalars['String']>
   blogPostPagePath?: Maybe<Scalars['String']>
   tagsPagePath?: Maybe<Scalars['String']>
 }
@@ -5021,6 +5023,7 @@ export type SiteSiteMetadataFilterInput = {
   typekitId?: Maybe<StringQueryOperatorInput>
   instagram?: Maybe<StringQueryOperatorInput>
   twitter?: Maybe<StringQueryOperatorInput>
+  youtube?: Maybe<StringQueryOperatorInput>
   blogPostPagePath?: Maybe<StringQueryOperatorInput>
   tagsPagePath?: Maybe<StringQueryOperatorInput>
 }
@@ -5066,6 +5069,7 @@ export type SiteMetadataQuery = {
         | 'description'
         | 'title'
         | 'instagram'
+        | 'youtube'
         | 'tagsPagePath'
         | 'twitter'
         | 'typekitId'
