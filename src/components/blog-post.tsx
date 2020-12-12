@@ -6,6 +6,7 @@ import {
   TagItemsQuery,
 } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { getPath } from '../libs'
 import ContentHeader from './content-header'
 import EffectedLink from './effected-link'
 import ListTags from './list-tags'
@@ -92,7 +93,9 @@ const BlogPost: React.FC<Props> = ({
           {permanent || !slug ? (
             title
           ) : (
-            <PostLink to={`/${siteMetadata?.blogPostPagePath}/${slug}`}>
+            <PostLink
+              to={getPath(undefined, siteMetadata?.blogPostPagePath, slug)}
+            >
               {title}
             </PostLink>
           )}
