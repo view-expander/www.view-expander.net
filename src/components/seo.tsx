@@ -35,7 +35,7 @@ const SEO: React.FC<Props> = ({
       ) : undefined}
       <meta name="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
-      <meta name="og:site_name" content={defaultTitle} />
+      <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />
       <meta property="og:url" content={url || defaultUrl} />
       <meta name="og:title" content={title || defaultTitle} />
