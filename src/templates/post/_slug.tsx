@@ -6,7 +6,7 @@ import Layout from '../../components/layout'
 import NavFooting from '../../components/nav-footing'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
-import { isStringOfNotEmpty } from '../../libs'
+import { getPath, isString, isStringOfNotEmpty } from '../../libs'
 
 const createNavItem = (
   path: string,
@@ -24,7 +24,7 @@ const createNavItem = (
   const title = item.title || undefined
 
   return {
-    path: `/${path}/${slug}`,
+    path: getPath(undefined, path, slug),
     title,
   }
 }
@@ -44,6 +44,11 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
   )
   const indexOfCurrentNode = allContentfulBlogPost.findIndex(
     ({ slug }) => slug === node.slug
+  )
+  const url = getPath(
+    isString(siteMetadata.siteUrl) ? `${siteMetadata.siteUrl}/` : undefined,
+    siteMetadata.blogPostPagePath,
+    node.slug
   )
   const newer = createNavItem(
     blogPostPagePath,
@@ -65,6 +70,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
         next={newer?.path}
         prev={older?.path}
         title={node.title || undefined}
+        url={url}
       />
       <BlogPost
         body={node.body || null}
