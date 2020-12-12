@@ -45,18 +45,27 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
   const indexOfCurrentNode = allContentfulBlogPost.findIndex(
     ({ slug }) => slug === node.slug
   )
-  const newer =
+  const newer = createNavItem(
+    blogPostPagePath,
     indexOfCurrentNode > 0
       ? allContentfulBlogPost[indexOfCurrentNode - 1]
       : undefined
-  const older =
+  )
+  const older = createNavItem(
+    blogPostPagePath,
     indexOfCurrentNode < allContentfulBlogPost.length - 1
       ? allContentfulBlogPost[indexOfCurrentNode + 1]
       : undefined
+  )
 
   return (
     <Layout>
-      <SEO description={description} title={node.title || undefined} />
+      <SEO
+        description={description}
+        next={newer?.path}
+        prev={older?.path}
+        title={node.title || undefined}
+      />
       <BlogPost
         body={node.body || null}
         date={node.date}
@@ -65,10 +74,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
         tags={node.tags || []}
         title={node.title || null}
       />
-      <NavFooting
-        newer={createNavItem(blogPostPagePath, newer)}
-        older={createNavItem(blogPostPagePath, older)}
-      />
+      <NavFooting newer={newer} older={older} />
     </Layout>
   )
 }
