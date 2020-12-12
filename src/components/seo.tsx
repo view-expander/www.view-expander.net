@@ -34,19 +34,21 @@ const SEO: React.FC<Props> = ({
         <meta property="fb:app_id" content={siteMetadata.facebookAppId} />
       ) : undefined}
       <meta property="og:type" content={type} />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />
       <link rel="canonical" href={url || defaultUrl} />
       {prev ? <link rel="prev" href={prev} /> : undefined}
       {next ? <link rel="next" href={next} /> : undefined}
       <meta property="og:url" content={url || defaultUrl} />
+      <meta name="twitter:url" content={url || defaultUrl} />
       <meta property="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="description" content={metaDescription} />
       <meta property="og:description" content={metaDescription} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="author" content={author} />
+      <meta name="twitter:site" content={author} />
       <meta name="twitter:creator" content={author} />
       {children}
     </Helmet>
