@@ -5171,7 +5171,7 @@ export type TagItemsQuery = {
             Maybe<
               Pick<
                 ContentfulBlogPostPicturesJsonNode,
-                'height' | 'key' | 'width'
+                'featured' | 'height' | 'key' | 'width'
               >
             >
           >

@@ -8,7 +8,8 @@ import Layout from '../../components/layout'
 import NavHeading from '../../components/nav-heading'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
-import { getPath } from '../../libs'
+import { getPath, isString } from '../../libs'
+import { getSharingPhotoPath } from '../../libs/imgix'
 
 const Separator = styled.span`
   display: inline-block;
@@ -33,9 +34,17 @@ const TagItemsTemplate: React.FC<PageProps<TagItemsQuery>> = ({ data }) => {
     return null
   }
 
+  const featuredPhoto = data.allContentfulBlogPost.edges
+    .flatMap(({ node }) => node.pictures || [])
+    .find(item => item && item.featured)
+  const image =
+    featuredPhoto && isString(featuredPhoto.key)
+      ? getSharingPhotoPath(featuredPhoto.key)
+      : undefined
+
   return (
     <Layout>
-      <SEO title={`Tags / ${tag.name}`} />
+      <SEO image={image} title={`Tags / ${tag.name}`} />
       <NavHeading>
         <EffectedLink to={getPath(undefined, siteMetadata?.tagsPagePath)}>
           Tags
@@ -77,6 +86,7 @@ export const query = graphql`
           slug
           date(locale: "ja-jp")
           pictures {
+            featured
             height
             key
             width
