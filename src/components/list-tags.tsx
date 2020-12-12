@@ -17,7 +17,7 @@ const UL = styled.ul`
 
   &:after {
     content: '';
-    width: 20%;
+    flex: auto;
   }
 `
 
