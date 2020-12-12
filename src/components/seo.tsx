@@ -7,6 +7,7 @@ type Props = {
   next?: string
   prev?: string
   title?: string
+  type?: 'article' | 'website'
   url?: string
 }
 
@@ -16,6 +17,7 @@ const SEO: React.FC<Props> = ({
   next,
   prev,
   title,
+  type = 'website',
   url,
 }) => {
   const siteMetadata = useSiteMetadata()
@@ -31,7 +33,7 @@ const SEO: React.FC<Props> = ({
       {siteMetadata?.facebookAppId ? (
         <meta property="fb:app_id" content={siteMetadata.facebookAppId} />
       ) : undefined}
-      <meta name="og:type" content="website" />
+      <meta property="og:type" content={type} />
       <meta name="twitter:card" content="summary" />
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />

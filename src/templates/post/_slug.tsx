@@ -70,6 +70,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
         next={newer?.path}
         prev={older?.path}
         title={node.title || undefined}
+        type={`article`}
         url={url}
       />
       <BlogPost
