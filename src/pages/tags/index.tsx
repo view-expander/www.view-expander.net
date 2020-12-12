@@ -9,14 +9,6 @@ import SEO from '../../components/seo'
 
 const Wrapper = styled.div`
   margin-top: 100px;
-
-  ul {
-    justify-content: center;
-
-    &:after {
-      display: none;
-    }
-  }
 `
 
 const TagsIndexPage: React.FC<PageProps<TagsIndexPageQuery>> = ({ data }) => (
