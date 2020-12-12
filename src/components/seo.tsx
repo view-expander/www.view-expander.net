@@ -41,7 +41,7 @@ const SEO: React.FC<Props> = ({
       {prev ? <link rel="prev" href={prev} /> : undefined}
       {next ? <link rel="next" href={next} /> : undefined}
       <meta property="og:url" content={url || defaultUrl} />
-      <meta name="og:title" content={title || defaultTitle} />
+      <meta property="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="description" content={metaDescription} />
       <meta name="og:description" content={metaDescription} />
