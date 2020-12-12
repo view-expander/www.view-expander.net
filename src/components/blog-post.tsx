@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { IndexPageQuery } from '../../graphql-types'
+import {
+  BlogPostQuery,
+  IndexPageQuery,
+  TagItemsQuery,
+} from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 import ContentHeader from './content-header'
 import EffectedLink from './effected-link'
@@ -9,7 +13,9 @@ import Pictures from './pictures'
 import PostDate from './post-date'
 
 type Props = Required<
-  ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node']
+  ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node'] &
+    ArrayElement<TagItemsQuery['allContentfulBlogPost']['edges']>['node'] &
+    BlogPostQuery['contentfulBlogPost']
 > & {
   permanent?: boolean
 }
