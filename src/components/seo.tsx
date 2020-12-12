@@ -4,6 +4,7 @@ import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 type Props = {
   description?: string
+  image?: string
   next?: string
   prev?: string
   title?: string
@@ -14,6 +15,7 @@ type Props = {
 const SEO: React.FC<Props> = ({
   children,
   description,
+  image,
   next,
   prev,
   title,
@@ -47,6 +49,8 @@ const SEO: React.FC<Props> = ({
       <meta name="description" content={metaDescription} />
       <meta property="og:description" content={metaDescription} />
       <meta name="twitter:description" content={metaDescription} />
+      {image ? <meta property="og:image" content={image} /> : undefined}
+      {image ? <meta name="twitter:image" content={image} /> : undefined}
       <meta name="author" content={author} />
       <meta name="twitter:site" content={author} />
       <meta name="twitter:creator" content={author} />

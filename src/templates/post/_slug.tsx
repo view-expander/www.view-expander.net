@@ -7,6 +7,8 @@ import NavFooting from '../../components/nav-footing'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 import { getPath, isString, isStringOfNotEmpty } from '../../libs'
+import { isNumber } from '../../libs/guards'
+import { getSharingPhotoPath } from '../../libs/imgix'
 
 const createNavItem = (
   path: string,
@@ -62,11 +64,17 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
       ? allContentfulBlogPost[indexOfCurrentNode + 1]
       : undefined
   )
+  const featuredPhoto = node.pictures?.find(item => item && item.featured)
+  const image =
+    featuredPhoto && isString(featuredPhoto.key)
+      ? getSharingPhotoPath(featuredPhoto.key)
+      : undefined
 
   return (
     <Layout>
       <SEO
         description={description}
+        image={image}
         next={newer?.path}
         prev={older?.path}
         title={node.title || undefined}
@@ -93,6 +101,7 @@ export const query = graphql`
       slug
       date(locale: "ja-jp")
       pictures {
+        featured
         height
         key
         width
