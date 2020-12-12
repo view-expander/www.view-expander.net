@@ -38,6 +38,7 @@ const SEO: React.FC<Props> = ({
       <meta name="twitter:card" content="summary" />
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />
+      <link rel="canonical" href={url || defaultUrl} />
       <meta property="og:url" content={url || defaultUrl} />
       <meta name="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
