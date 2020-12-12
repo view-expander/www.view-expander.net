@@ -695,6 +695,7 @@ export type ContentfulBlogPostFieldsEnum =
   | 'tags___blog_post___pictures___key'
   | 'tags___blog_post___pictures___width'
   | 'tags___blog_post___pictures___height'
+  | 'tags___blog_post___pictures___featured'
   | 'tags___blog_post___spaceId'
   | 'tags___blog_post___createdAt'
   | 'tags___blog_post___updatedAt'
@@ -722,6 +723,7 @@ export type ContentfulBlogPostFieldsEnum =
   | 'tags___blog_post___childrenContentfulBlogPostPicturesJsonNode___key'
   | 'tags___blog_post___childrenContentfulBlogPostPicturesJsonNode___width'
   | 'tags___blog_post___childrenContentfulBlogPostPicturesJsonNode___height'
+  | 'tags___blog_post___childrenContentfulBlogPostPicturesJsonNode___featured'
   | 'tags___blog_post___childContentfulBlogPostBodyTextNode___id'
   | 'tags___blog_post___childContentfulBlogPostBodyTextNode___children'
   | 'tags___blog_post___childContentfulBlogPostBodyTextNode___body'
@@ -809,6 +811,7 @@ export type ContentfulBlogPostFieldsEnum =
   | 'pictures___key'
   | 'pictures___width'
   | 'pictures___height'
+  | 'pictures___featured'
   | 'pictures___sys___type'
   | 'spaceId'
   | 'createdAt'
@@ -1014,6 +1017,7 @@ export type ContentfulBlogPostFieldsEnum =
   | 'childrenContentfulBlogPostPicturesJsonNode___key'
   | 'childrenContentfulBlogPostPicturesJsonNode___width'
   | 'childrenContentfulBlogPostPicturesJsonNode___height'
+  | 'childrenContentfulBlogPostPicturesJsonNode___featured'
   | 'childrenContentfulBlogPostPicturesJsonNode___sys___type'
   | 'childContentfulBlogPostBodyTextNode___id'
   | 'childContentfulBlogPostBodyTextNode___parent___id'
@@ -1131,6 +1135,7 @@ export type ContentfulBlogPostPicturesJsonNode = Node & {
   key?: Maybe<Scalars['String']>
   width?: Maybe<Scalars['Int']>
   height?: Maybe<Scalars['Int']>
+  featured?: Maybe<Scalars['Boolean']>
   sys?: Maybe<ContentfulBlogPostPicturesJsonNodeSys>
 }
 
@@ -1249,6 +1254,7 @@ export type ContentfulBlogPostPicturesJsonNodeFieldsEnum =
   | 'key'
   | 'width'
   | 'height'
+  | 'featured'
   | 'sys___type'
 
 export type ContentfulBlogPostPicturesJsonNodeFilterInput = {
@@ -1259,6 +1265,7 @@ export type ContentfulBlogPostPicturesJsonNodeFilterInput = {
   key?: Maybe<StringQueryOperatorInput>
   width?: Maybe<IntQueryOperatorInput>
   height?: Maybe<IntQueryOperatorInput>
+  featured?: Maybe<BooleanQueryOperatorInput>
   sys?: Maybe<ContentfulBlogPostPicturesJsonNodeSysFilterInput>
 }
 
@@ -1795,6 +1802,7 @@ export type ContentfulTagFieldsEnum =
   | 'blog_post___pictures___key'
   | 'blog_post___pictures___width'
   | 'blog_post___pictures___height'
+  | 'blog_post___pictures___featured'
   | 'blog_post___pictures___sys___type'
   | 'blog_post___spaceId'
   | 'blog_post___createdAt'
@@ -1882,6 +1890,7 @@ export type ContentfulTagFieldsEnum =
   | 'blog_post___childrenContentfulBlogPostPicturesJsonNode___key'
   | 'blog_post___childrenContentfulBlogPostPicturesJsonNode___width'
   | 'blog_post___childrenContentfulBlogPostPicturesJsonNode___height'
+  | 'blog_post___childrenContentfulBlogPostPicturesJsonNode___featured'
   | 'blog_post___childrenContentfulBlogPostPicturesJsonNode___sys___type'
   | 'blog_post___childContentfulBlogPostBodyTextNode___id'
   | 'blog_post___childContentfulBlogPostBodyTextNode___parent___id'
@@ -3983,6 +3992,7 @@ export type QueryContentfulBlogPostPicturesJsonNodeArgs = {
   key?: Maybe<StringQueryOperatorInput>
   width?: Maybe<IntQueryOperatorInput>
   height?: Maybe<IntQueryOperatorInput>
+  featured?: Maybe<BooleanQueryOperatorInput>
   sys?: Maybe<ContentfulBlogPostPicturesJsonNodeSysFilterInput>
 }
 
@@ -5097,7 +5107,7 @@ export type IndexPageQuery = {
             Maybe<
               Pick<
                 ContentfulBlogPostPicturesJsonNode,
-                'height' | 'key' | 'width'
+                'featured' | 'height' | 'key' | 'width'
               >
             >
           >
@@ -5129,7 +5139,10 @@ export type BlogPostQuery = {
       pictures?: Maybe<
         Array<
           Maybe<
-            Pick<ContentfulBlogPostPicturesJsonNode, 'height' | 'key' | 'width'>
+            Pick<
+              ContentfulBlogPostPicturesJsonNode,
+              'featured' | 'height' | 'key' | 'width'
+            >
           >
         >
       >
