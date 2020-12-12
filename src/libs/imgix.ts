@@ -13,11 +13,8 @@ const imgixClient = IMGIX_DOMAIN
 
 const createPhotoPath = (key: string) =>
   `${process.env.GATSBY_IMGIX_PATH}/${key}`
-export const getImageSources = (
-  key: string,
-  aspectRatio: number,
-  params: {} = {}
-) => {
+
+const getImageSources = (key: string, aspectRatio: number, params: {} = {}) => {
   if (!imgixClient) {
     return { src: undefined, srcSet: undefined }
   }
@@ -51,3 +48,11 @@ export const getPhotoAttributes = (meta: PhotoMeta, params?: {}) => {
 
   return { aspectRatio, height, src, srcSet, width }
 }
+
+export const getSharingPhotoPath = (key: string) =>
+  imgixClient?.buildURL(createPhotoPath(key), {
+    ...IMGIX_COMMON_PARAMS,
+    w: 1200,
+    h: 1200,
+    q: 75,
+  })
