@@ -8,6 +8,7 @@ import Layout from '../../components/layout'
 import NavHeading from '../../components/nav-heading'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
+import { getPath } from '../../libs'
 
 const Separator = styled.span`
   display: inline-block;
@@ -36,7 +37,9 @@ const TagItemsTemplate: React.FC<PageProps<TagItemsQuery>> = ({ data }) => {
     <Layout>
       <SEO title={`Tags / ${tag.name}`} />
       <NavHeading>
-        <EffectedLink to={`/${siteMetadata?.tagsPagePath}`}>Tags</EffectedLink>
+        <EffectedLink to={getPath(undefined, siteMetadata?.tagsPagePath)}>
+          Tags
+        </EffectedLink>
         <Separator aria-hidden>/</Separator>
         <CurrentTag>{tag.name}</CurrentTag>
       </NavHeading>
