@@ -7,6 +7,7 @@ module.exports = {
     author: `@haribote_nobody`,
     blogPostPagePath: `post`,
     description: `旅と写真のブログ`,
+    facebookAppId: process.env.FACEBOOK_APP_ID,
     instagram: `haribote`,
     siteUrl: 'https://view-expander.net/',
     tagsPagePath: `tags`,

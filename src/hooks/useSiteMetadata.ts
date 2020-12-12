@@ -9,6 +9,7 @@ export const useSiteMetadata = () => {
           author
           blogPostPagePath
           description
+          facebookAppId
           instagram
           siteUrl
           tagsPagePath

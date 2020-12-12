@@ -4250,12 +4250,14 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
-  | 'siteMetadata___typekitId'
-  | 'siteMetadata___instagram'
-  | 'siteMetadata___twitter'
-  | 'siteMetadata___youtube'
   | 'siteMetadata___blogPostPagePath'
+  | 'siteMetadata___facebookAppId'
+  | 'siteMetadata___instagram'
+  | 'siteMetadata___siteUrl'
   | 'siteMetadata___tagsPagePath'
+  | 'siteMetadata___twitter'
+  | 'siteMetadata___typekitId'
+  | 'siteMetadata___youtube'
   | 'port'
   | 'host'
   | 'polyfill'
@@ -5008,24 +5010,28 @@ export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   author?: Maybe<Scalars['String']>
-  typekitId?: Maybe<Scalars['String']>
-  instagram?: Maybe<Scalars['String']>
-  twitter?: Maybe<Scalars['String']>
-  youtube?: Maybe<Scalars['String']>
   blogPostPagePath?: Maybe<Scalars['String']>
+  facebookAppId?: Maybe<Scalars['String']>
+  instagram?: Maybe<Scalars['String']>
+  siteUrl?: Maybe<Scalars['String']>
   tagsPagePath?: Maybe<Scalars['String']>
+  twitter?: Maybe<Scalars['String']>
+  typekitId?: Maybe<Scalars['String']>
+  youtube?: Maybe<Scalars['String']>
 }
 
 export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>
   description?: Maybe<StringQueryOperatorInput>
   author?: Maybe<StringQueryOperatorInput>
-  typekitId?: Maybe<StringQueryOperatorInput>
-  instagram?: Maybe<StringQueryOperatorInput>
-  twitter?: Maybe<StringQueryOperatorInput>
-  youtube?: Maybe<StringQueryOperatorInput>
   blogPostPagePath?: Maybe<StringQueryOperatorInput>
+  facebookAppId?: Maybe<StringQueryOperatorInput>
+  instagram?: Maybe<StringQueryOperatorInput>
+  siteUrl?: Maybe<StringQueryOperatorInput>
   tagsPagePath?: Maybe<StringQueryOperatorInput>
+  twitter?: Maybe<StringQueryOperatorInput>
+  typekitId?: Maybe<StringQueryOperatorInput>
+  youtube?: Maybe<StringQueryOperatorInput>
 }
 
 export type SiteSortInput = {
@@ -5067,12 +5073,14 @@ export type SiteMetadataQuery = {
         | 'author'
         | 'blogPostPagePath'
         | 'description'
-        | 'title'
+        | 'facebookAppId'
         | 'instagram'
-        | 'youtube'
+        | 'siteUrl'
         | 'tagsPagePath'
+        | 'title'
         | 'twitter'
         | 'typekitId'
+        | 'youtube'
       >
     >
   }>
