@@ -22,6 +22,7 @@ const SEO: React.FC<Props> = ({
   const metaDescription = description || siteMetadata?.description || undefined
   const defaultTitle = siteMetadata?.title || undefined
   const defaultUrl = siteMetadata?.siteUrl || undefined
+  const author = siteMetadata?.author || undefined
 
   console.log(`next`, next)
   console.log(`prev`, prev)
@@ -43,10 +44,8 @@ const SEO: React.FC<Props> = ({
       <meta name="description" content={metaDescription} />
       <meta name="og:description" content={metaDescription} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta
-        name="twitter:creator"
-        content={siteMetadata?.author || undefined}
-      />
+      <meta name="author" content={author} />
+      <meta name="twitter:creator" content={author} />
       {children}
     </Helmet>
   )
