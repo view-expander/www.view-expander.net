@@ -37,7 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allContentfulBlogPost.edges.forEach(({ node }) =>
     createPage({
-      path: `${result.data.site.siteMetadata.blogPostPagePath}/${node.slug}`,
+      path: `${result.data.site.siteMetadata.blogPostPagePath}/${node.slug}/`,
       component: path.resolve(`./src/templates/post/_slug.tsx`),
       context: {
         slug: node.slug,
@@ -47,7 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allContentfulTag.edges.forEach(({ node }) =>
     createPage({
-      path: `${result.data.site.siteMetadata.tagsPagePath}/${node.slug}`,
+      path: `${result.data.site.siteMetadata.tagsPagePath}/${node.slug}/`,
       component: path.resolve(`./src/templates/tags/_slug.tsx`),
       context: {
         slug: node.slug,
