@@ -8,6 +8,8 @@
 
 const path = require('path')
 
+const createClosedPath = (...pathSegments) => `${path.join(...pathSegments)}/`
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const result = await graphql(`
@@ -34,10 +36,11 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+  const { blogPostPagePath, tagsPagePath } = result.data.site.siteMetadata
 
   result.data.allContentfulBlogPost.edges.forEach(({ node }) =>
     createPage({
-      path: `${result.data.site.siteMetadata.blogPostPagePath}/${node.slug}/`,
+      path: createClosedPath(blogPostPagePath, node.slug),
       component: path.resolve(`./src/templates/post/_slug.tsx`),
       context: {
         slug: node.slug,
@@ -47,7 +50,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allContentfulTag.edges.forEach(({ node }) =>
     createPage({
-      path: `${result.data.site.siteMetadata.tagsPagePath}/${node.slug}/`,
+      path: createClosedPath(tagsPagePath, node.slug),
       component: path.resolve(`./src/templates/tags/_slug.tsx`),
       context: {
         slug: node.slug,
