@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { ContentfulTag, Maybe } from '../../graphql-types'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { getPath } from '../libs'
 import EffectedLink from './effected-link'
 
 const UL = styled.ul`
@@ -44,7 +45,9 @@ const ListTags: React.FC<{
         .map(item =>
           item ? (
             <LI key={item.slug}>
-              <TagsLink to={`/${siteMetadata?.tagsPagePath}/${item.slug}`}>
+              <TagsLink
+                to={getPath(undefined, siteMetadata?.tagsPagePath, item.slug)}
+              >
                 {item.name}
               </TagsLink>
             </LI>
