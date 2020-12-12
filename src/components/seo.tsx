@@ -44,7 +44,7 @@ const SEO: React.FC<Props> = ({
       <meta property="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="description" content={metaDescription} />
-      <meta name="og:description" content={metaDescription} />
+      <meta property="og:description" content={metaDescription} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="author" content={author} />
       <meta name="twitter:creator" content={author} />
