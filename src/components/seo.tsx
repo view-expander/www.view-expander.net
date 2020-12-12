@@ -2,14 +2,20 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-const SEO: React.FC<{ description?: string; title?: string }> = ({
-  children,
-  description,
-  title,
-}) => {
+type Props = {
+  description?: string
+  next?: string
+  prev?: string
+  title?: string
+}
+
+const SEO: React.FC<Props> = ({ children, description, next, prev, title }) => {
   const siteMetadata = useSiteMetadata()
   const metaDescription = description || siteMetadata?.description || undefined
   const defaultTitle = siteMetadata?.title || undefined
+
+  console.log(`next`, next)
+  console.log(`prev`, prev)
 
   return (
     <Helmet>
