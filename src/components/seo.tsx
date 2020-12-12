@@ -7,12 +7,21 @@ type Props = {
   next?: string
   prev?: string
   title?: string
+  url?: string
 }
 
-const SEO: React.FC<Props> = ({ children, description, next, prev, title }) => {
+const SEO: React.FC<Props> = ({
+  children,
+  description,
+  next,
+  prev,
+  title,
+  url,
+}) => {
   const siteMetadata = useSiteMetadata()
   const metaDescription = description || siteMetadata?.description || undefined
   const defaultTitle = siteMetadata?.title || undefined
+  const defaultUrl = siteMetadata?.siteUrl || undefined
 
   console.log(`next`, next)
   console.log(`prev`, prev)
@@ -28,6 +37,7 @@ const SEO: React.FC<Props> = ({ children, description, next, prev, title }) => {
       <meta name="twitter:card" content="summary" />
       <meta name="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />
+      <meta property="og:url" content={url || defaultUrl} />
       <meta name="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="description" content={metaDescription} />
