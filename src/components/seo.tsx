@@ -24,9 +24,6 @@ const SEO: React.FC<Props> = ({
   const defaultUrl = siteMetadata?.siteUrl || undefined
   const author = siteMetadata?.author || undefined
 
-  console.log(`next`, next)
-  console.log(`prev`, prev)
-
   return (
     <Helmet>
       <html lang="ja" />
@@ -39,6 +36,8 @@ const SEO: React.FC<Props> = ({
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />
       <link rel="canonical" href={url || defaultUrl} />
+      {prev ? <link rel="prev" href={prev} /> : undefined}
+      {next ? <link rel="next" href={next} /> : undefined}
       <meta property="og:url" content={url || defaultUrl} />
       <meta name="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
