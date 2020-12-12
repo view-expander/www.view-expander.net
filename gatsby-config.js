@@ -4,15 +4,16 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `View Expander`,
-    description: `旅と写真のブログ`,
     author: `@haribote_nobody`,
-    typekitId: process.env.GATSBY_TYPEKIT_ID,
-    instagram: `haribote`,
-    twitter: `haribote_nobody`,
-    youtube: `UCNR5LeFbBlOwjq7uefmyyOw`,
     blogPostPagePath: `post`,
+    description: `旅と写真のブログ`,
+    instagram: `haribote`,
+    siteUrl: 'https://view-expander.net/',
     tagsPagePath: `tags`,
+    title: `View Expander`,
+    twitter: `haribote_nobody`,
+    typekitId: process.env.GATSBY_TYPEKIT_ID,
+    youtube: `UCNR5LeFbBlOwjq7uefmyyOw`,
   },
   plugins: [
     `gatsby-plugin-graphql-codegen`,

@@ -9,12 +9,13 @@ export const useSiteMetadata = () => {
           author
           blogPostPagePath
           description
-          title
           instagram
-          youtube
+          siteUrl
           tagsPagePath
+          title
           twitter
           typekitId
+          youtube
         }
       }
     }
