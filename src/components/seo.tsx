@@ -21,12 +21,16 @@ const SEO: React.FC<Props> = ({ children, description, next, prev, title }) => {
     <Helmet>
       <html lang="ja" />
       <title>{title ? `${title} | ${defaultTitle}` : defaultTitle || ''}</title>
-      <meta name="description" content={metaDescription} />
+      {siteMetadata?.facebookAppId ? (
+        <meta property="fb:app_id" content={siteMetadata.facebookAppId} />
+      ) : undefined}
       <meta name="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
       <meta name="og:site_name" content={defaultTitle} />
+      <meta property="og:locale" content="ja_JP" />
       <meta name="og:title" content={title || defaultTitle} />
       <meta name="twitter:title" content={title || defaultTitle} />
+      <meta name="description" content={metaDescription} />
       <meta name="og:description" content={metaDescription} />
       <meta name="twitter:description" content={metaDescription} />
       <meta
