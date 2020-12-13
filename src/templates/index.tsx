@@ -3,16 +3,22 @@ import React from 'react'
 import { IndexPageQuery } from '../../graphql-types'
 import BlogPost from '../components/blog-post'
 import Layout from '../components/layout'
+import NavFooting from '../components/nav-footing'
 import SEO from '../components/seo'
-import { isString } from '../libs'
+import { getPath, isString, isStringOfNotEmpty } from '../libs'
 import { getSharingPhotoPath } from '../libs/imgix'
 
-const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({
+type ExPageProps<T> = PageProps<T> & {
+  pageContext: PageProps<T>['pageContext'] & {
+    nextPagePath: string
+    previousPagePath: string
+  }
+}
+
+const IndexPage: React.FC<ExPageProps<IndexPageQuery>> = ({
   data,
   pageContext,
 }) => {
-  console.log(pageContext)
-
   const featuredPhoto = data.allContentfulBlogPost.edges
     .flatMap(({ node }) => node.pictures || [])
     .find(item => item && item.featured)
@@ -20,6 +26,12 @@ const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({
     featuredPhoto && isString(featuredPhoto.key)
       ? getSharingPhotoPath(featuredPhoto.key)
       : undefined
+  const newer = isStringOfNotEmpty(pageContext.previousPagePath)
+    ? { path: getPath(undefined, pageContext.previousPagePath) }
+    : undefined
+  const older = isStringOfNotEmpty(pageContext.nextPagePath)
+    ? { path: getPath(undefined, pageContext.nextPagePath) }
+    : undefined
 
   return (
     <Layout>
@@ -38,6 +50,7 @@ const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({
           />
         ) : undefined
       )}
+      <NavFooting newer={newer} older={older} />
     </Layout>
   )
 }

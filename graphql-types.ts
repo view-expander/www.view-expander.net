@@ -388,11 +388,11 @@ export type ContentfulBlogPost = ContentfulReference &
     date?: Maybe<Scalars['Date']>
     tags?: Maybe<Array<Maybe<ContentfulTag>>>
     pictures?: Maybe<Array<Maybe<ContentfulBlogPostPicturesJsonNode>>>
+    body?: Maybe<ContentfulBlogPostBodyTextNode>
     spaceId?: Maybe<Scalars['String']>
     createdAt?: Maybe<Scalars['Date']>
     updatedAt?: Maybe<Scalars['Date']>
     sys?: Maybe<ContentfulBlogPostSys>
-    body?: Maybe<ContentfulBlogPostBodyTextNode>
     parent?: Maybe<Node>
     children: Array<Node>
     internal: Internal
@@ -696,14 +696,14 @@ export type ContentfulBlogPostFieldsEnum =
   | 'tags___blog_post___pictures___width'
   | 'tags___blog_post___pictures___height'
   | 'tags___blog_post___pictures___featured'
+  | 'tags___blog_post___body___id'
+  | 'tags___blog_post___body___children'
+  | 'tags___blog_post___body___body'
   | 'tags___blog_post___spaceId'
   | 'tags___blog_post___createdAt'
   | 'tags___blog_post___updatedAt'
   | 'tags___blog_post___sys___type'
   | 'tags___blog_post___sys___revision'
-  | 'tags___blog_post___body___id'
-  | 'tags___blog_post___body___children'
-  | 'tags___blog_post___body___body'
   | 'tags___blog_post___parent___id'
   | 'tags___blog_post___parent___children'
   | 'tags___blog_post___children'
@@ -813,14 +813,6 @@ export type ContentfulBlogPostFieldsEnum =
   | 'pictures___height'
   | 'pictures___featured'
   | 'pictures___sys___type'
-  | 'spaceId'
-  | 'createdAt'
-  | 'updatedAt'
-  | 'sys___type'
-  | 'sys___revision'
-  | 'sys___contentType___sys___type'
-  | 'sys___contentType___sys___linkType'
-  | 'sys___contentType___sys___id'
   | 'body___id'
   | 'body___parent___id'
   | 'body___parent___parent___id'
@@ -890,6 +882,14 @@ export type ContentfulBlogPostFieldsEnum =
   | 'body___childMarkdownRemark___internal___mediaType'
   | 'body___childMarkdownRemark___internal___owner'
   | 'body___childMarkdownRemark___internal___type'
+  | 'spaceId'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'sys___type'
+  | 'sys___revision'
+  | 'sys___contentType___sys___type'
+  | 'sys___contentType___sys___linkType'
+  | 'sys___contentType___sys___id'
   | 'parent___id'
   | 'parent___parent___id'
   | 'parent___parent___parent___id'
@@ -1098,11 +1098,11 @@ export type ContentfulBlogPostFilterInput = {
   date?: Maybe<DateQueryOperatorInput>
   tags?: Maybe<ContentfulTagFilterListInput>
   pictures?: Maybe<ContentfulBlogPostPicturesJsonNodeFilterListInput>
+  body?: Maybe<ContentfulBlogPostBodyTextNodeFilterInput>
   spaceId?: Maybe<StringQueryOperatorInput>
   createdAt?: Maybe<DateQueryOperatorInput>
   updatedAt?: Maybe<DateQueryOperatorInput>
   sys?: Maybe<ContentfulBlogPostSysFilterInput>
-  body?: Maybe<ContentfulBlogPostBodyTextNodeFilterInput>
   parent?: Maybe<NodeFilterInput>
   children?: Maybe<NodeFilterListInput>
   internal?: Maybe<InternalFilterInput>
@@ -1804,11 +1804,6 @@ export type ContentfulTagFieldsEnum =
   | 'blog_post___pictures___height'
   | 'blog_post___pictures___featured'
   | 'blog_post___pictures___sys___type'
-  | 'blog_post___spaceId'
-  | 'blog_post___createdAt'
-  | 'blog_post___updatedAt'
-  | 'blog_post___sys___type'
-  | 'blog_post___sys___revision'
   | 'blog_post___body___id'
   | 'blog_post___body___parent___id'
   | 'blog_post___body___parent___children'
@@ -1835,6 +1830,11 @@ export type ContentfulTagFieldsEnum =
   | 'blog_post___body___childMarkdownRemark___timeToRead'
   | 'blog_post___body___childMarkdownRemark___tableOfContents'
   | 'blog_post___body___childMarkdownRemark___children'
+  | 'blog_post___spaceId'
+  | 'blog_post___createdAt'
+  | 'blog_post___updatedAt'
+  | 'blog_post___sys___type'
+  | 'blog_post___sys___revision'
   | 'blog_post___parent___id'
   | 'blog_post___parent___parent___id'
   | 'blog_post___parent___parent___children'
@@ -3921,11 +3921,11 @@ export type QueryContentfulBlogPostArgs = {
   date?: Maybe<DateQueryOperatorInput>
   tags?: Maybe<ContentfulTagFilterListInput>
   pictures?: Maybe<ContentfulBlogPostPicturesJsonNodeFilterListInput>
+  body?: Maybe<ContentfulBlogPostBodyTextNodeFilterInput>
   spaceId?: Maybe<StringQueryOperatorInput>
   createdAt?: Maybe<DateQueryOperatorInput>
   updatedAt?: Maybe<DateQueryOperatorInput>
   sys?: Maybe<ContentfulBlogPostSysFilterInput>
-  body?: Maybe<ContentfulBlogPostBodyTextNodeFilterInput>
   parent?: Maybe<NodeFilterInput>
   children?: Maybe<NodeFilterListInput>
   internal?: Maybe<InternalFilterInput>
@@ -4418,10 +4418,24 @@ export type SitePageConnectionGroupArgs = {
 }
 
 export type SitePageContext = {
+  pageNumber?: Maybe<Scalars['Int']>
+  humanPageNumber?: Maybe<Scalars['Int']>
+  skip?: Maybe<Scalars['Int']>
+  limit?: Maybe<Scalars['Int']>
+  numberOfPages?: Maybe<Scalars['Int']>
+  previousPagePath?: Maybe<Scalars['String']>
+  nextPagePath?: Maybe<Scalars['String']>
   slug?: Maybe<Scalars['String']>
 }
 
 export type SitePageContextFilterInput = {
+  pageNumber?: Maybe<IntQueryOperatorInput>
+  humanPageNumber?: Maybe<IntQueryOperatorInput>
+  skip?: Maybe<IntQueryOperatorInput>
+  limit?: Maybe<IntQueryOperatorInput>
+  numberOfPages?: Maybe<IntQueryOperatorInput>
+  previousPagePath?: Maybe<StringQueryOperatorInput>
+  nextPagePath?: Maybe<StringQueryOperatorInput>
   slug?: Maybe<StringQueryOperatorInput>
 }
 
@@ -4524,6 +4538,13 @@ export type SitePageFieldsEnum =
   | 'internal___owner'
   | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
+  | 'context___pageNumber'
+  | 'context___humanPageNumber'
+  | 'context___skip'
+  | 'context___limit'
+  | 'context___numberOfPages'
+  | 'context___previousPagePath'
+  | 'context___nextPagePath'
   | 'context___slug'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
@@ -5096,7 +5117,18 @@ export type SiteMetadataQuery = {
   }>
 }
 
-export type IndexPageQueryVariables = Exact<{ [key: string]: never }>
+export type TagsIndexPageQueryVariables = Exact<{ [key: string]: never }>
+
+export type TagsIndexPageQuery = {
+  allContentfulTag: {
+    edges: Array<{ node: Pick<ContentfulTag, 'name' | 'slug'> }>
+  }
+}
+
+export type IndexPageQueryVariables = Exact<{
+  skip: Scalars['Int']
+  limit: Scalars['Int']
+}>
 
 export type IndexPageQuery = {
   allContentfulBlogPost: {
@@ -5118,14 +5150,6 @@ export type IndexPageQuery = {
         }>
       }
     }>
-  }
-}
-
-export type TagsIndexPageQueryVariables = Exact<{ [key: string]: never }>
-
-export type TagsIndexPageQuery = {
-  allContentfulTag: {
-    edges: Array<{ node: Pick<ContentfulTag, 'name' | 'slug'> }>
   }
 }
 

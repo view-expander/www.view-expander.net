@@ -4,8 +4,8 @@
  * See: https://www.gatsbyjs.com/docs/node-apis/
  */
 
-import path from 'path'
-import { paginate } from 'gatsby-awesome-pagination'
+const path = require('path')
+const { paginate } = require('gatsby-awesome-pagination')
 
 const createClosedPath = (...pathSegments) => `${path.join(...pathSegments)}/`
 
@@ -47,7 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
   paginate({
     createPage,
     items: blogPosts,
-    itemsPerPage: 1,
+    itemsPerPage: 10,
     pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? '/' : '/page'),
     component: path.resolve(`./src/templates/index.tsx`),
   })
