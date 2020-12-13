@@ -21,10 +21,11 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
       allContentfulTag(sort: { fields: name }) {
-        edges {
-          node {
+        nodes {
+          blog_post {
             slug
           }
+          slug
         }
       }
       site {
@@ -41,7 +42,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   const blogPosts = result.data.allContentfulBlogPost.edges
-  const tags = result.data.allContentfulTag.edges
+  const tags = result.data.allContentfulTag.nodes
   const { blogPostPagePath, tagsPagePath } = result.data.site.siteMetadata
 
   paginate({
@@ -62,13 +63,17 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   )
 
-  tags.forEach(({ node }) =>
-    createPage({
-      path: createClosedPath(tagsPagePath, node.slug),
+  tags.forEach(({ slug, blog_post }) =>
+    paginate({
+      createPage,
+      items: blog_post,
+      itemsPerPage: 1,
+      pathPrefix: ({ pageNumber }) =>
+        pageNumber === 0
+          ? path.join(tagsPagePath, slug)
+          : path.join(tagsPagePath, slug, 'page'),
       component: path.resolve(`./src/templates/tags/_slug.tsx`),
-      context: {
-        slug: node.slug,
-      },
+      context: { slug },
     })
   )
 }

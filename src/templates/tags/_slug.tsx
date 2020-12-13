@@ -71,7 +71,7 @@ const TagItemsTemplate: React.FC<PageProps<TagItemsQuery>> = ({ data }) => {
 }
 
 export const query = graphql`
-  query TagItems($slug: String!) {
+  query TagItems($slug: String!, $skip: Int!, $limit: Int!) {
     contentfulTag(slug: { eq: $slug }) {
       name
       slug
@@ -79,6 +79,8 @@ export const query = graphql`
     allContentfulBlogPost(
       sort: { fields: date, order: DESC }
       filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
+      skip: $skip
+      limit: $limit
     ) {
       edges {
         node {
