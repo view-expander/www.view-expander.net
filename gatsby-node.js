@@ -7,6 +7,9 @@
 const path = require('path')
 const { paginate } = require('gatsby-awesome-pagination')
 
+const ITEMS_PER_PAGE = 10
+const PAGE_PREFIX = 'page'
+
 const createClosedPath = (...pathSegments) => `${path.join(...pathSegments)}/`
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -48,8 +51,9 @@ exports.createPages = async ({ graphql, actions }) => {
   paginate({
     createPage,
     items: blogPosts,
-    itemsPerPage: 10,
-    pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? '/' : '/page'),
+    itemsPerPage: ITEMS_PER_PAGE,
+    pathPrefix: ({ pageNumber }) =>
+      pageNumber === 0 ? '/' : `/${PAGE_PREFIX}`,
     component: path.resolve(`./src/templates/index.tsx`),
   })
 
@@ -67,11 +71,11 @@ exports.createPages = async ({ graphql, actions }) => {
     paginate({
       createPage,
       items: blog_post,
-      itemsPerPage: 1,
+      itemsPerPage: ITEMS_PER_PAGE,
       pathPrefix: ({ pageNumber }) =>
         pageNumber === 0
           ? path.join(tagsPagePath, slug)
-          : path.join(tagsPagePath, slug, 'page'),
+          : path.join(tagsPagePath, slug, PAGE_PREFIX),
       component: path.resolve(`./src/templates/tags/_slug.tsx`),
       context: { slug },
     })

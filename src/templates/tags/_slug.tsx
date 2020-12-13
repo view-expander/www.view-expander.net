@@ -5,10 +5,11 @@ import { TagItemsQuery } from '../../../graphql-types'
 import BlogPost from '../../components/blog-post'
 import EffectedLink from '../../components/effected-link'
 import Layout from '../../components/layout'
+import NavFooting from '../../components/nav-footing'
 import NavHeading from '../../components/nav-heading'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
-import { getPath, isString } from '../../libs'
+import { getPath, isString, isStringOfNotEmpty } from '../../libs'
 import { getSharingPhotoPath } from '../../libs/imgix'
 import { PaginatedPageProps } from '../models'
 
@@ -29,6 +30,7 @@ const CurrentTag = styled.strong`
 
 const TagItemsTemplate: React.FC<PaginatedPageProps<TagItemsQuery>> = ({
   data,
+  pageContext,
 }) => {
   const tag = data.contentfulTag
   const siteMetadata = useSiteMetadata()
@@ -44,6 +46,12 @@ const TagItemsTemplate: React.FC<PaginatedPageProps<TagItemsQuery>> = ({
     featuredPhoto && isString(featuredPhoto.key)
       ? getSharingPhotoPath(featuredPhoto.key)
       : undefined
+  const newer = isStringOfNotEmpty(pageContext.previousPagePath)
+    ? { path: getPath(undefined, pageContext.previousPagePath) }
+    : undefined
+  const older = isStringOfNotEmpty(pageContext.nextPagePath)
+    ? { path: getPath(undefined, pageContext.nextPagePath) }
+    : undefined
 
   return (
     <Layout>
@@ -69,6 +77,7 @@ const TagItemsTemplate: React.FC<PaginatedPageProps<TagItemsQuery>> = ({
           />
         ) : undefined
       )}
+      <NavFooting newer={newer} older={older} />
     </Layout>
   )
 }
