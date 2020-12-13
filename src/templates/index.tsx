@@ -5,7 +5,7 @@ import BlogPost from '../components/blog-post'
 import Layout from '../components/layout'
 import NavFooting from '../components/nav-footing'
 import SEO from '../components/seo'
-import { getPath, isString, isStringOfNotEmpty } from '../libs'
+import { isString, isStringOfNotEmpty } from '../libs'
 import { getSharingPhotoPath } from '../libs/imgix'
 import { PaginatedPageProps } from './models'
 
@@ -21,10 +21,10 @@ const IndexPage: React.FC<PaginatedPageProps<IndexPageQuery>> = ({
       ? getSharingPhotoPath(featuredPhoto.key)
       : undefined
   const newer = isStringOfNotEmpty(pageContext.previousPagePath)
-    ? { path: getPath(undefined, pageContext.previousPagePath) }
+    ? { path: pageContext.previousPagePath }
     : undefined
   const older = isStringOfNotEmpty(pageContext.nextPagePath)
-    ? { path: getPath(undefined, pageContext.nextPagePath) }
+    ? { path: pageContext.nextPagePath }
     : undefined
 
   return (
