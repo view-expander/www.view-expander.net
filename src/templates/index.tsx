@@ -1,4 +1,4 @@
-import { graphql, PageProps } from 'gatsby'
+import { graphql } from 'gatsby'
 import React from 'react'
 import { IndexPageQuery } from '../../graphql-types'
 import BlogPost from '../components/blog-post'
@@ -7,15 +7,9 @@ import NavFooting from '../components/nav-footing'
 import SEO from '../components/seo'
 import { getPath, isString, isStringOfNotEmpty } from '../libs'
 import { getSharingPhotoPath } from '../libs/imgix'
+import { PaginatedPageProps } from './models'
 
-type ExPageProps<T> = PageProps<T> & {
-  pageContext: PageProps<T>['pageContext'] & {
-    nextPagePath: string
-    previousPagePath: string
-  }
-}
-
-const IndexPage: React.FC<ExPageProps<IndexPageQuery>> = ({
+const IndexPage: React.FC<PaginatedPageProps<IndexPageQuery>> = ({
   data,
   pageContext,
 }) => {

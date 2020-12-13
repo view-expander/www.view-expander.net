@@ -1,4 +1,4 @@
-import { graphql, PageProps } from 'gatsby'
+import { graphql } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { TagItemsQuery } from '../../../graphql-types'
@@ -10,6 +10,7 @@ import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 import { getPath, isString } from '../../libs'
 import { getSharingPhotoPath } from '../../libs/imgix'
+import { PaginatedPageProps } from '../models'
 
 const Separator = styled.span`
   display: inline-block;
@@ -26,7 +27,9 @@ const CurrentTag = styled.strong`
   }
 `
 
-const TagItemsTemplate: React.FC<PageProps<TagItemsQuery>> = ({ data }) => {
+const TagItemsTemplate: React.FC<PaginatedPageProps<TagItemsQuery>> = ({
+  data,
+}) => {
   const tag = data.contentfulTag
   const siteMetadata = useSiteMetadata()
 
