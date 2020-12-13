@@ -36,13 +36,13 @@ const PhotoImage = styled.img.attrs<ImgAttrs>(attrs => ({
   @media (min-width: 1200px) {
     width: 95vh;
     height: 95vh;
-    max-width: cal((1140px - 2rem) * ${getWidthMag});
-    max-height: cal((1140px - 2rem) * ${getHeightMag});
+    max-width: calc((1140px - 2rem) * ${getWidthMag});
+    max-height: calc((1140px - 2rem) * ${getHeightMag});
   }
 
   @media (min-width: 1400px) {
-    max-width: cal((1320px - 2rem) * ${getWidthMag});
-    max-height: cal((1320px - 2rem) * ${getHeightMag});
+    max-width: calc((1320px - 2rem) * ${getWidthMag});
+    max-height: calc((1320px - 2rem) * ${getHeightMag});
   }
 `
 
