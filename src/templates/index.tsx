@@ -7,7 +7,12 @@ import SEO from '../components/seo'
 import { isString } from '../libs'
 import { getSharingPhotoPath } from '../libs/imgix'
 
-const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({ data }) => {
+const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({
+  data,
+  pageContext,
+}) => {
+  console.log(pageContext)
+
   const featuredPhoto = data.allContentfulBlogPost.edges
     .flatMap(({ node }) => node.pictures || [])
     .find(item => item && item.featured)
@@ -38,8 +43,12 @@ const IndexPage: React.FC<PageProps<IndexPageQuery>> = ({ data }) => {
 }
 
 export const query = graphql`
-  query IndexPage {
-    allContentfulBlogPost(sort: { fields: date, order: DESC }) {
+  query IndexPage($skip: Int!, $limit: Int!) {
+    allContentfulBlogPost(
+      sort: { fields: date, order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
       edges {
         node {
           title
