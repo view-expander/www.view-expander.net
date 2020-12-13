@@ -4,9 +4,7 @@
  * See: https://www.gatsbyjs.com/docs/node-apis/
  */
 
-// You can delete this file if you're not using it
-
-const path = require('path')
+import path from 'path'
 
 const createClosedPath = (...pathSegments) => `${path.join(...pathSegments)}/`
 
@@ -36,9 +34,16 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+
+  if (!result.data) {
+    return
+  }
+
+  const blogPosts = result.data.allContentfulBlogPost.edges
+  const tags = result.data.allContentfulTag.edges
   const { blogPostPagePath, tagsPagePath } = result.data.site.siteMetadata
 
-  result.data.allContentfulBlogPost.edges.forEach(({ node }) =>
+  blogPosts.forEach(({ node }) =>
     createPage({
       path: createClosedPath(blogPostPagePath, node.slug),
       component: path.resolve(`./src/templates/post/_slug.tsx`),
@@ -48,7 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   )
 
-  result.data.allContentfulTag.edges.forEach(({ node }) =>
+  tags.forEach(({ node }) =>
     createPage({
       path: createClosedPath(tagsPagePath, node.slug),
       component: path.resolve(`./src/templates/tags/_slug.tsx`),
