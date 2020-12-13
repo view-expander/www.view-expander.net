@@ -5,6 +5,7 @@
  */
 
 import path from 'path'
+import { paginate } from 'gatsby-awesome-pagination'
 
 const createClosedPath = (...pathSegments) => `${path.join(...pathSegments)}/`
 
@@ -42,6 +43,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const blogPosts = result.data.allContentfulBlogPost.edges
   const tags = result.data.allContentfulTag.edges
   const { blogPostPagePath, tagsPagePath } = result.data.site.siteMetadata
+
+  paginate({
+    createPage,
+    items: blogPosts,
+    itemsPerPage: 1,
+    pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? '/' : '/page'),
+    component: path.resolve(`./src/templates/index.tsx`),
+  })
 
   blogPosts.forEach(({ node }) =>
     createPage({
