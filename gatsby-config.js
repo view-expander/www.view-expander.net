@@ -11,7 +11,7 @@ module.exports = {
     description: `旅と写真のブログ`,
     facebookAppId: process.env.FACEBOOK_APP_ID,
     instagram: `haribote`,
-    siteUrl: 'https://view-expander.net/',
+    siteUrl: 'https://www.view-expander.net/',
     tagsPagePath: `tags`,
     title: `View Expander`,
     twitter: `haribote_nobody`,
