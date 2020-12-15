@@ -3798,8 +3798,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>
-  port?: Maybe<IntQueryOperatorInput>
-  host?: Maybe<StringQueryOperatorInput>
   polyfill?: Maybe<BooleanQueryOperatorInput>
   pathPrefix?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -4062,8 +4060,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>
   siteMetadata?: Maybe<SiteSiteMetadata>
-  port?: Maybe<Scalars['Int']>
-  host?: Maybe<Scalars['String']>
   polyfill?: Maybe<Scalars['Boolean']>
   pathPrefix?: Maybe<Scalars['String']>
   id: Scalars['ID']
@@ -4268,8 +4264,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___twitter'
   | 'siteMetadata___typekitId'
   | 'siteMetadata___youtube'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -4362,8 +4356,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>
-  port?: Maybe<IntQueryOperatorInput>
-  host?: Maybe<StringQueryOperatorInput>
   polyfill?: Maybe<BooleanQueryOperatorInput>
   pathPrefix?: Maybe<StringQueryOperatorInput>
   id?: Maybe<StringQueryOperatorInput>
@@ -4619,6 +4611,10 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___assetDownloadWorkers'
   | 'pluginCreator___pluginOptions___useNameForId'
   | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___feeds'
+  | 'pluginCreator___pluginOptions___feeds___output'
+  | 'pluginCreator___pluginOptions___feeds___query'
+  | 'pluginCreator___pluginOptions___query'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___pluginOptions___allExtensions'
   | 'pluginCreator___pluginOptions___isTSX'
@@ -4839,6 +4835,10 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___assetDownloadWorkers'
   | 'pluginOptions___useNameForId'
   | 'pluginOptions___path'
+  | 'pluginOptions___feeds'
+  | 'pluginOptions___feeds___output'
+  | 'pluginOptions___feeds___query'
+  | 'pluginOptions___query'
   | 'pluginOptions___pathCheck'
   | 'pluginOptions___allExtensions'
   | 'pluginOptions___isTSX'
@@ -4987,10 +4987,26 @@ export type SitePluginPluginOptions = {
   assetDownloadWorkers?: Maybe<Scalars['Int']>
   useNameForId?: Maybe<Scalars['Boolean']>
   path?: Maybe<Scalars['String']>
+  feeds?: Maybe<Array<Maybe<SitePluginPluginOptionsFeeds>>>
+  query?: Maybe<Scalars['String']>
   pathCheck?: Maybe<Scalars['Boolean']>
   allExtensions?: Maybe<Scalars['Boolean']>
   isTSX?: Maybe<Scalars['Boolean']>
   jsxPragma?: Maybe<Scalars['String']>
+}
+
+export type SitePluginPluginOptionsFeeds = {
+  output?: Maybe<Scalars['String']>
+  query?: Maybe<Scalars['String']>
+}
+
+export type SitePluginPluginOptionsFeedsFilterInput = {
+  output?: Maybe<StringQueryOperatorInput>
+  query?: Maybe<StringQueryOperatorInput>
+}
+
+export type SitePluginPluginOptionsFeedsFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsFeedsFilterInput>
 }
 
 export type SitePluginPluginOptionsFilterInput = {
@@ -5026,6 +5042,8 @@ export type SitePluginPluginOptionsFilterInput = {
   assetDownloadWorkers?: Maybe<IntQueryOperatorInput>
   useNameForId?: Maybe<BooleanQueryOperatorInput>
   path?: Maybe<StringQueryOperatorInput>
+  feeds?: Maybe<SitePluginPluginOptionsFeedsFilterListInput>
+  query?: Maybe<StringQueryOperatorInput>
   pathCheck?: Maybe<BooleanQueryOperatorInput>
   allExtensions?: Maybe<BooleanQueryOperatorInput>
   isTSX?: Maybe<BooleanQueryOperatorInput>

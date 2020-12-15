@@ -2,6 +2,8 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     author: `@haribote_nobody`,
@@ -17,7 +19,6 @@ module.exports = {
     youtube: `UCNR5LeFbBlOwjq7uefmyyOw`,
   },
   plugins: [
-    `gatsby-plugin-feed`,
     `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -50,5 +51,79 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        feeds: [
+          {
+            output: `/index.xml`,
+            query: `{
+              allContentfulBlogPost(sort: {fields: date, order: DESC}) {
+                edges {
+                  node {
+                    date
+                    slug
+                    title
+                    childContentfulBlogPostBodyTextNode {
+                      childMarkdownRemark {
+                        html
+                        excerpt(truncate: true)
+                      }
+                    }
+                  }
+                }
+              }
+            }`,
+            serialize: ({ query: { site, allContentfulBlogPost } }) =>
+              allContentfulBlogPost.edges.map(({ node }) => {
+                const hasBody =
+                  node.childContentfulBlogPostBodyTextNode &&
+                  node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
+                const description = hasBody
+                  ? node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
+                      .excerpt
+                  : null
+                const url = path.join(
+                  site.siteMetadata.siteUrl,
+                  site.siteMetadata.blogPostPagePath,
+                  node.slug
+                )
+
+                return Object.assign(
+                  {},
+                  {
+                    title: node.title,
+                    url,
+                    guid: url,
+                    date: node.date,
+                    description,
+                    custom_elements: [
+                      {
+                        'content:encoded': hasBody
+                          ? node.childContentfulBlogPostBodyTextNode
+                              .childMarkdownRemark.html
+                          : null,
+                      },
+                    ],
+                  }
+                )
+              }),
+          },
+        ],
+        query: `
+          {
+            site {
+              siteMetadata {
+                blogPostPagePath
+                description
+                siteUrl
+                site_url: siteUrl
+                title
+              }
+            }
+          }
+        `,
+      },
+    },
   ],
 }
