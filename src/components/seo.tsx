@@ -40,6 +40,18 @@ const SEO: React.FC<Props> = ({
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:locale" content="ja_JP" />
       <link rel="canonical" href={url || defaultUrl} />
+      <link
+        href={`${defaultUrl}/index.xml`}
+        rel="alternate"
+        type="application/rss+xml"
+        title={defaultTitle}
+      />
+      <link
+        href={`${defaultUrl}/index.xml`}
+        rel="feed"
+        type="application/rss+xml"
+        title={defaultTitle}
+      />
       {prev ? <link rel="prev" href={prev} /> : undefined}
       {next ? <link rel="next" href={next} /> : undefined}
       <meta property="og:url" content={url || defaultUrl} />
