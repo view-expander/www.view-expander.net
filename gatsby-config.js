@@ -17,6 +17,7 @@ module.exports = {
     youtube: `UCNR5LeFbBlOwjq7uefmyyOw`,
   },
   plugins: [
+    `gatsby-plugin-feed`,
     `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-plugin-manifest`,
