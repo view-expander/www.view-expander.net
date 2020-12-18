@@ -70,7 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
   tags.forEach(({ slug, blog_post }) =>
     paginate({
       createPage,
-      items: blog_post,
+      items: blog_post || [],
       itemsPerPage: ITEMS_PER_PAGE,
       pathPrefix: ({ pageNumber }) =>
         pageNumber === 0
