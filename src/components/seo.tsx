@@ -54,6 +54,12 @@ const SEO: React.FC<Props> = ({
       />
       {prev ? <link rel="prev" href={prev} /> : undefined}
       {next ? <link rel="next" href={next} /> : undefined}
+      <link rel="dns-prefetch" href={`https://${siteMetadata?.imgixDomain}`} />
+      <link
+        rel="preconnect"
+        href={`https://${siteMetadata?.imgixDomain}`}
+        crossOrigin="crossorigin"
+      />
       <meta property="og:url" content={url || defaultUrl} />
       <meta name="twitter:url" content={url || defaultUrl} />
       <meta property="og:title" content={title || defaultTitle} />
