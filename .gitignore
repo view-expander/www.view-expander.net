@@ -71,4 +71,4 @@ yarn-error.log
 # Locale files
 .graphqlconfig
 gatsby.graphql
-
+graphql-types.ts
