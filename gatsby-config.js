@@ -3,6 +3,8 @@ require('dotenv').config({
 })
 
 const path = require('path')
+const ImgixClient = require('imgix-core-js')
+const imgixClient = new ImgixClient({ domain: process.env.GATSBY_IMGIX_DOMAIN })
 
 module.exports = {
   siteMetadata: {
@@ -61,28 +63,32 @@ module.exports = {
               allContentfulBlogPost(sort: {fields: date, order: DESC}) {
                 edges {
                   node {
-                    date
-                    slug
-                    title
                     childContentfulBlogPostBodyTextNode {
                       childMarkdownRemark {
                         html
                         excerpt(truncate: true)
                       }
                     }
+                    date
+                    pictures {
+                      key
+                    }
+                    slug
+                    title
                   }
                 }
               }
             }`,
             serialize: ({ query: { site, allContentfulBlogPost } }) =>
               allContentfulBlogPost.edges.map(({ node }) => {
-                const hasBody =
+                const hasBody = Boolean(
                   node.childContentfulBlogPostBodyTextNode &&
-                  node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
+                    node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
+                )
                 const description = hasBody
                   ? node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
                       .excerpt
-                  : null
+                  : site.siteMetadata.description
                 const url = path.join(
                   site.siteMetadata.siteUrl,
                   site.siteMetadata.blogPostPagePath,
@@ -94,15 +100,30 @@ module.exports = {
                   {
                     title: node.title,
                     url,
-                    guid: url,
                     date: node.date,
                     description,
                     custom_elements: [
                       {
-                        'content:encoded': hasBody
-                          ? node.childContentfulBlogPostBodyTextNode
-                              .childMarkdownRemark.html
-                          : null,
+                        'content:encoded': `${node.pictures
+                          .map(
+                            ({ key }) =>
+                              `<p><img src="${imgixClient.buildURL(
+                                `${process.env.GATSBY_IMGIX_PATH}/${key}`,
+                                {
+                                  auto: 'format',
+                                  fit: 'clip',
+                                  w: 688,
+                                  h: 688,
+                                  q: 75,
+                                }
+                              )}" alt="" /></p>`
+                          )
+                          .join('')}${
+                          hasBody
+                            ? node.childContentfulBlogPostBodyTextNode
+                                .childMarkdownRemark.html
+                            : ''
+                        }`,
                       },
                     ],
                   }
