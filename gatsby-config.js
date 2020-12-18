@@ -4,7 +4,8 @@ require('dotenv').config({
 
 const path = require('path')
 const ImgixClient = require('imgix-core-js')
-const imgixClient = new ImgixClient({ domain: process.env.GATSBY_IMGIX_DOMAIN })
+const IMGIX_DOMAIN = process.env.GATSBY_IMGIX_DOMAIN
+const imgixClient = new ImgixClient({ domain: IMGIX_DOMAIN })
 
 module.exports = {
   siteMetadata: {
@@ -12,6 +13,7 @@ module.exports = {
     blogPostPagePath: `post`,
     description: `旅と写真のブログ`,
     facebookAppId: process.env.FACEBOOK_APP_ID,
+    imgixDomain: IMGIX_DOMAIN,
     instagram: `haribote`,
     siteUrl: 'https://www.view-expander.net/',
     tagsPagePath: `tags`,
