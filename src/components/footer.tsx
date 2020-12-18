@@ -149,15 +149,15 @@ const Footer: React.FC = () => {
           <LinkToInstagram
             href={`https://www.instagram.com/${siteMetadata?.instagram}`}
           >
-            <StyledInstagramIcon />
+            <StyledInstagramIcon titleAccess="Instagram" />
           </LinkToInstagram>
           <LinkToYouTube
             href={`https://www.youtube.com/channel/${siteMetadata?.youtube}`}
           >
-            <StyledYouTubeIcon style={{ fontSize: 32 }} />
+            <StyledYouTubeIcon titleAccess="YouTube" />
           </LinkToYouTube>
           <LinkToTwitter href={`https://twitter.com/${siteMetadata?.twitter}`}>
-            <StyledTwitterIcon style={{ fontSize: 32 }} />
+            <StyledTwitterIcon titleAccess="Twitter" />
           </LinkToTwitter>
         </SNSAccounts>
       </FooterRow>
