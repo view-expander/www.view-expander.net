@@ -57,7 +57,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <SEO>
-        <script>{`
+        <script async>{`
 setTimeout(function() {(function(d) {
   var config = {
     kitId: "${siteMetadata?.typekitId}",
