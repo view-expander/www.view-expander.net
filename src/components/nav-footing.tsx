@@ -101,7 +101,7 @@ const NavFooting: React.FC<Props> = ({ newer, older }) => (
     ) : undefined}
     <Home>
       <NavLink to="/">
-        <HomeIcon />
+        <HomeIcon titleAccess="home" />
       </NavLink>
     </Home>
     {older ? (
