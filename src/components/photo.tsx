@@ -32,7 +32,7 @@ const Photo: React.FC<Props> = ({ meta }) => {
   const hiResPhotoAttrs = getPhotoAttributes(meta)
 
   const [status, setStatus] = usePhotoStatus()
-  const [ref, inView] = useInView({ triggerOnce: true })
+  const [ref, inView] = useInView({ threshold: 0.33, triggerOnce: true })
   const onLoading = useCallback(() => setStatus(PHOTO_STATUS.LOADING), [
     setStatus,
   ])

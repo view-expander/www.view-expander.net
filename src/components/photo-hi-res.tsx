@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { PHOTO_STATUS, PhotoStatusKey } from '../hooks/usePhotoStatus'
 import { isString } from '../libs'
@@ -92,15 +92,17 @@ const PhotoHiRes: React.FC<Props> = ({
   const isLoading = status === PHOTO_STATUS.LOADING
   const isStable = status === PHOTO_STATUS.STABLE
   const onTransitionEnd = useCallback(() => onStable(), [onStable])
+
+  const [rect, setRect] = useState({ height, width })
+
   const props = {
+    ...rect,
     aspectRatio,
-    height,
     isLoaded,
     isStable,
     onTransitionEnd,
     src,
     srcSet,
-    width,
   }
 
   useEffect(() => {
@@ -121,6 +123,7 @@ const PhotoHiRes: React.FC<Props> = ({
         }
 
         onLoaded()
+        setRect({ height: img.height, width: img.width })
       }
 
       img.addEventListener('load', onLoad)
@@ -131,7 +134,7 @@ const PhotoHiRes: React.FC<Props> = ({
         img.src = src
       }
     }
-  }, [onLoading, onLoaded, status])
+  }, [onLoading, onLoaded, status, setRect])
 
   return isLoading || isLoaded || isStable ? (
     <StyledPhotoImage {...props} />
