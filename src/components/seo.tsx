@@ -27,6 +27,11 @@ const SEO: React.FC<Props> = ({
   const defaultTitle = siteMetadata?.title || undefined
   const defaultUrl = siteMetadata?.siteUrl || undefined
   const author = siteMetadata?.author || undefined
+  const preConnects = [
+    `https://${siteMetadata?.imgixDomain}`,
+    'https://use.typekit.net/',
+    'https://p.typekit.net/',
+  ]
 
   return (
     <Helmet>
@@ -54,12 +59,12 @@ const SEO: React.FC<Props> = ({
       />
       {prev ? <link rel="prev" href={prev} /> : undefined}
       {next ? <link rel="next" href={next} /> : undefined}
-      <link rel="dns-prefetch" href={`https://${siteMetadata?.imgixDomain}`} />
-      <link
-        rel="preconnect"
-        href={`https://${siteMetadata?.imgixDomain}`}
-        crossOrigin="crossorigin"
-      />
+      {preConnects.map(href => (
+        <link rel="dns-prefetch" href={href} />
+      ))}
+      {preConnects.map(href => (
+        <link rel="preconnect" href={href} crossOrigin="anonymous" />
+      ))}
       <meta property="og:url" content={url || defaultUrl} />
       <meta name="twitter:url" content={url || defaultUrl} />
       <meta property="og:title" content={title || defaultTitle} />
