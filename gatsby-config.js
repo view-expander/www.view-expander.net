@@ -90,7 +90,7 @@ module.exports = {
                   ? node.body.childMarkdownRemark.excerpt.split('　')
                   : [site.siteMetadata.description]
                 ).join('')
-                const url = `${site.siteMetadata.siteUrl}${path.join(
+                const url = `${site.siteMetadata.siteUrl}/${path.join(
                   site.siteMetadata.blogPostPagePath,
                   node.slug
                 )}`
