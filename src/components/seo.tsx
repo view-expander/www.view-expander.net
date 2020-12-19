@@ -46,14 +46,14 @@ const SEO: React.FC<Props> = ({
       <meta property="og:locale" content="ja_JP" />
       <link rel="canonical" href={url || defaultUrl} />
       <link
-        href={`${defaultUrl}/index.xml`}
         rel="alternate"
+        href={`${defaultUrl}/index.xml`}
         type="application/rss+xml"
         title={defaultTitle}
       />
       <link
-        href={`${defaultUrl}/index.xml`}
         rel="feed"
+        href={`${defaultUrl}/index.xml`}
         type="application/rss+xml"
         title={defaultTitle}
       />
