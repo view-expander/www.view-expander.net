@@ -56,6 +56,13 @@ const Photo: React.FC<Props> = ({ meta }) => {
     <>
       <Helmet>
         <link rel="preload" as="image" href={previewPhotoAttrs.src} />
+        <link
+          rel="preload"
+          as="image"
+          href={hiResPhotoAttrs.src}
+          // @ts-ignore
+          imageSrcset={hiResPhotoAttrs.srcSet}
+        />
       </Helmet>
       <Wrapper ref={ref}>
         {status !== PHOTO_STATUS.STABLE ? (
