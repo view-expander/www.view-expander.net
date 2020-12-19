@@ -41,7 +41,10 @@ const getImageSources = (key: string, aspectRatio: number, params: {} = {}) => {
   return { src, srcSet }
 }
 
-export const getPhotoAttributes = (meta: PhotoMeta, params?: {}) => {
+export const getPhotoAttributes = (
+  meta: PhotoMeta,
+  params?: {}
+): PhotoAttrs => {
   const { height, key, width } = meta
   const aspectRatio = height / width
   const { src, srcSet } = getImageSources(key, aspectRatio, params)
