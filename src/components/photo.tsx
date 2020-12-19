@@ -2,8 +2,9 @@ import React, { useCallback } from 'react'
 import { useInView } from 'react-intersection-observer'
 import styled from 'styled-components'
 import { PHOTO_STATUS, usePhotoStatus } from '../hooks/usePhotoStatus'
+import { getPhotoAttributes } from '../libs'
 import PhotoHiRes from './photo-hi-res'
-import PhotoPreview from './photo-preview'
+import PhotoImage from './photo-image'
 
 type Props = {
   meta: PhotoMeta
@@ -21,6 +22,13 @@ const Wrapper = styled.div`
 `
 
 const Photo: React.FC<Props> = ({ meta }) => {
+  const previewPhotoAttrs = getPhotoAttributes(meta, {
+    colorquant: 2,
+    sat: -100,
+    gam: -90,
+    blur: 20,
+  })
+
   const [status, setStatus] = usePhotoStatus()
   const [ref, inView] = useInView({ triggerOnce: true })
   const onLoading = useCallback(() => setStatus(PHOTO_STATUS.LOADING), [
@@ -45,7 +53,7 @@ const Photo: React.FC<Props> = ({ meta }) => {
   return (
     <Wrapper ref={ref}>
       {status !== PHOTO_STATUS.STABLE ? (
-        <PhotoPreview aria-hidden meta={meta} />
+        <PhotoImage aria-hidden {...previewPhotoAttrs} />
       ) : undefined}
       {inView ? (
         <PhotoHiRes
