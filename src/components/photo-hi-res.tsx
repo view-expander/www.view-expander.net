@@ -5,44 +5,72 @@ import { isString } from '../libs'
 import PhotoImage from './photo-image'
 
 type Props = PhotoAttrs & {
-  onLoading: () => any
   onLoaded: () => any
+  onLoading: () => any
   onStable: () => any
   status: PhotoStatusKey
 }
 
-const StyledPhotoImage = styled(PhotoImage).attrs<{
+type PhotoStatus = {
+  isEmpty: boolean
   isLoaded: boolean
+  isLoading: boolean
   isStable: boolean
-}>(attrs => attrs)<{
-  isLoaded: boolean
-  isStable: boolean
-}>`
+}
+
+const IS_EMPTY = 'is--empty'
+const IS_LOADED = 'is--loaded'
+const IS_LOADING = 'is--loading'
+const IS_STABLE = 'is--stable'
+
+const getClassName = ({
+  isEmpty,
+  isLoaded,
+  isLoading,
+  isStable,
+}: PhotoStatus) =>
+  Object.entries({
+    [IS_EMPTY]: isEmpty,
+    [IS_LOADED]: isLoaded,
+    [IS_LOADING]: isLoading,
+    [IS_STABLE]: isStable,
+  })
+    .reduce<string[]>(
+      (memo, [key, value]) => (value ? [...memo, key] : memo),
+      []
+    )
+    .join(' ')
+
+const StyledPhotoImage = styled(PhotoImage).attrs<PhotoStatus>(attrs => ({
+  ...attrs,
+  className: getClassName({
+    isEmpty: attrs.isEmpty,
+    isLoaded: attrs.isLoaded,
+    isLoading: attrs.isLoading,
+    isStable: attrs.isStable,
+  }),
+}))`
   will-change: width, height, opacity;
   opacity: 0;
   visibility: hidden;
   transition: opacity 500ms ease-out 200ms;
 
-  &.is--loading,
-  &.is--loaded {
+  &.${IS_LOADING}, &.${IS_LOADED} {
     position: absolute;
   }
 
-  &.is--loading,
-  &.is--loaded,
-  &.is--stable {
+  &.${IS_LOADING}, &.${IS_LOADED}, &.${IS_STABLE} {
     visibility: visible;
   }
 
-  &.is--loaded,
-  &.is--stable {
+  &.${IS_LOADED}, &.${IS_STABLE} {
     opacity: 1;
   }
 
   [data-browser='ie11'] & {
     display: none;
 
-    &.is--stable {
+    &.${IS_STABLE} {
       display: block;
     }
   }
@@ -106,18 +134,7 @@ const PhotoHiRes: React.FC<Props> = ({
   }, [onLoading, onLoaded, status])
 
   return isLoading || isLoaded || isStable ? (
-    <StyledPhotoImage
-      className={
-        isLoading
-          ? 'is--loading'
-          : isLoaded
-          ? 'is--loaded'
-          : isStable
-          ? 'is--stable'
-          : undefined
-      }
-      {...props}
-    />
+    <StyledPhotoImage {...props} />
   ) : null
 }
 
