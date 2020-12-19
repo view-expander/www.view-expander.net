@@ -63,7 +63,7 @@ const SEO: React.FC<Props> = ({
         <link key={href} rel="dns-prefetch" href={href} />
       ))}
       {preConnects.map(href => (
-        <link key={href} rel="preconnect" href={href} crossOrigin="anonymous" />
+        <link key={href} rel="preconnect" href={href} />
       ))}
       <meta property="og:url" content={url || defaultUrl} />
       <meta name="twitter:url" content={url || defaultUrl} />
