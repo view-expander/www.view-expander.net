@@ -65,10 +65,10 @@ module.exports = {
               allContentfulBlogPost(sort: {fields: date, order: DESC}) {
                 edges {
                   node {
-                    childContentfulBlogPostBodyTextNode {
+                    body {
                       childMarkdownRemark {
+                        excerpt(pruneLength: 100, truncate: true)
                         html
-                        excerpt(truncate: true)
                       }
                     }
                     date
@@ -84,18 +84,16 @@ module.exports = {
             serialize: ({ query: { site, allContentfulBlogPost } }) =>
               allContentfulBlogPost.edges.map(({ node }) => {
                 const hasBody = Boolean(
-                  node.childContentfulBlogPostBodyTextNode &&
-                    node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
+                  node.body && node.body.childMarkdownRemark
                 )
-                const description = hasBody
-                  ? node.childContentfulBlogPostBodyTextNode.childMarkdownRemark
-                      .excerpt
-                  : site.siteMetadata.description
-                const url = path.join(
-                  site.siteMetadata.siteUrl,
+                const description = (hasBody
+                  ? node.body.childMarkdownRemark.excerpt.split('　')
+                  : [site.siteMetadata.description]
+                ).join('')
+                const url = `${site.siteMetadata.siteUrl}${path.join(
                   site.siteMetadata.blogPostPagePath,
                   node.slug
-                )
+                )}`
 
                 return Object.assign(
                   {},
@@ -121,10 +119,7 @@ module.exports = {
                               )}" alt="" /></p>`
                           )
                           .join('')}${
-                          hasBody
-                            ? node.childContentfulBlogPostBodyTextNode
-                                .childMarkdownRemark.html
-                            : ''
+                          hasBody ? node.body.childMarkdownRemark.html : ''
                         }`,
                       },
                     ],
