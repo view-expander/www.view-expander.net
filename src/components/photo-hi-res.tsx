@@ -51,13 +51,10 @@ const StyledPhotoImage = styled(PhotoImage).attrs<PhotoStatus>(attrs => ({
   }),
 }))`
   will-change: width, height, opacity;
+  position: absolute;
   opacity: 0;
   visibility: hidden;
   transition: opacity 500ms ease-out 200ms;
-
-  &.${IS_LOADING}, &.${IS_LOADED} {
-    position: absolute;
-  }
 
   &.${IS_LOADING}, &.${IS_LOADED}, &.${IS_STABLE} {
     visibility: visible;
@@ -65,6 +62,12 @@ const StyledPhotoImage = styled(PhotoImage).attrs<PhotoStatus>(attrs => ({
 
   &.${IS_LOADED}, &.${IS_STABLE} {
     opacity: 1;
+
+    &:first-child {
+      &:last-child {
+        position: static;
+      }
+    }
   }
 
   [data-browser='ie11'] & {
