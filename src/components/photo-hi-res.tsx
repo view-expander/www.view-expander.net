@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { PHOTO_STATUS, PhotoStatusKey } from '../hooks/usePhotoStatus'
-import { getPhotoAttributes, isString } from '../libs'
+import { isString } from '../libs'
 import PhotoImage from './photo-image'
 
-type Props = {
-  meta: PhotoMeta
+type Props = PhotoAttrs & {
   onLoading: () => any
   onLoaded: () => any
   onStable: () => any
@@ -50,22 +49,33 @@ const StyledPhotoImage = styled(PhotoImage).attrs<{
 `
 
 const PhotoHiRes: React.FC<Props> = ({
-  meta,
+  aspectRatio,
+  height,
   onLoading,
   onLoaded,
   onStable,
+  src,
+  srcSet,
   status,
+  width,
 }) => {
   const isEmpty = status === PHOTO_STATUS.EMPTY
   const isLoaded = status === PHOTO_STATUS.LOADED
   const isLoading = status === PHOTO_STATUS.LOADING
   const isStable = status === PHOTO_STATUS.STABLE
-  const attrs = getPhotoAttributes(meta)
   const onTransitionEnd = useCallback(() => onStable(), [onStable])
+  const props = {
+    aspectRatio,
+    height,
+    isLoaded,
+    isStable,
+    onTransitionEnd,
+    src,
+    srcSet,
+    width,
+  }
 
   useEffect(() => {
-    const { src, srcSet } = attrs
-
     if (!src || !srcSet) {
       return
     }
@@ -106,10 +116,7 @@ const PhotoHiRes: React.FC<Props> = ({
           ? 'is--stable'
           : undefined
       }
-      {...getPhotoAttributes(meta)}
-      isLoaded={isLoaded}
-      isStable={isStable}
-      onTransitionEnd={onTransitionEnd}
+      {...props}
     />
   ) : null
 }

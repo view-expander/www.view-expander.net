@@ -28,6 +28,7 @@ const Photo: React.FC<Props> = ({ meta }) => {
     gam: -90,
     blur: 20,
   })
+  const hiResPhotoAttrs = getPhotoAttributes(meta)
 
   const [status, setStatus] = usePhotoStatus()
   const [ref, inView] = useInView({ triggerOnce: true })
@@ -57,7 +58,7 @@ const Photo: React.FC<Props> = ({ meta }) => {
       ) : undefined}
       {inView ? (
         <PhotoHiRes
-          meta={meta}
+          {...hiResPhotoAttrs}
           onLoading={onLoading}
           onLoaded={onLoaded}
           onStable={onStable}
