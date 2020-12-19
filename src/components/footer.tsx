@@ -32,7 +32,11 @@ const StyledInstagramIcon = createStyledSnsIcon(InstagramIcon)
 const StyledYouTubeIcon = createStyledSnsIcon(YouTubeIcon)
 const StyledTwitterIcon = createStyledSnsIcon(TwitterIcon)
 
-const LinkToSNS = styled.a.attrs(attrs => ({ ...attrs, target: '_blank' }))`
+const LinkToSNS = styled.a.attrs(attrs => ({
+  ...attrs,
+  rel: 'noopener',
+  target: '_blank',
+}))`
   margin-left: 8px;
   margin-right: 8px;
   padding: 8px;
