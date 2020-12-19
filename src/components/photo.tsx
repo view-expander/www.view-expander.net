@@ -60,8 +60,14 @@ const Photo: React.FC<Props> = ({ meta }) => {
   return (
     <>
       <Helmet>
-        <link rel="preload" href={previewPhotoAttrs.src} as="image" />
         <link
+          key={`${meta.key}.preview`}
+          rel="preload"
+          href={previewPhotoAttrs.src}
+          as="image"
+        />
+        <link
+          key={`${meta.key}.hi-res`}
           rel="preload"
           href={hiResPhotoAttrs.src}
           // @ts-ignore
