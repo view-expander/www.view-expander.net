@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { Helmet } from 'react-helmet'
 import { useInView } from 'react-intersection-observer'
 import styled from 'styled-components'
 import { PHOTO_STATUS, usePhotoStatus } from '../hooks/usePhotoStatus'
@@ -52,20 +53,25 @@ const Photo: React.FC<Props> = ({ meta }) => {
   )
 
   return (
-    <Wrapper ref={ref}>
-      {status !== PHOTO_STATUS.STABLE ? (
-        <PhotoImage aria-hidden {...previewPhotoAttrs} />
-      ) : undefined}
-      {inView ? (
-        <PhotoHiRes
-          {...hiResPhotoAttrs}
-          onLoading={onLoading}
-          onLoaded={onLoaded}
-          onStable={onStable}
-          status={status}
-        />
-      ) : undefined}
-    </Wrapper>
+    <>
+      <Helmet>
+        <link rel="preload" as="image" href={previewPhotoAttrs.src} />
+      </Helmet>
+      <Wrapper ref={ref}>
+        {status !== PHOTO_STATUS.STABLE ? (
+          <PhotoImage aria-hidden {...previewPhotoAttrs} />
+        ) : undefined}
+        {inView ? (
+          <PhotoHiRes
+            {...hiResPhotoAttrs}
+            onLoading={onLoading}
+            onLoaded={onLoaded}
+            onStable={onStable}
+            status={status}
+          />
+        ) : undefined}
+      </Wrapper>
+    </>
   )
 }
 
