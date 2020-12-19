@@ -60,13 +60,13 @@ const Photo: React.FC<Props> = ({ meta }) => {
   return (
     <>
       <Helmet>
-        <link as="image" href={previewPhotoAttrs.src} rel="preload" />
+        <link rel="preload" href={previewPhotoAttrs.src} as="image" />
         <link
-          as="image"
+          rel="preload"
           href={hiResPhotoAttrs.src}
           // @ts-ignore
           imageSrcset={hiResPhotoAttrs.srcSet}
-          rel="preload"
+          as="image"
         />
       </Helmet>
       <Wrapper ref={ref}>
