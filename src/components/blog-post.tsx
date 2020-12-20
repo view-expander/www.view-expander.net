@@ -32,8 +32,20 @@ const PostArticle = styled.article`
 `
 
 const PostBody = styled.div`
+  will-change: opacity;
+  opacity: 0;
   margin-top: 50px;
   text-align: justify;
+  transition: opacity 200ms ease-out 100ms;
+
+  .wf-loading & {
+    opacity: 0;
+  }
+
+  .wf-active &,
+  .wf-inactive & {
+    opacity: 1;
+  }
 
   & > :first-child {
     margin-top: 0;
@@ -58,12 +70,36 @@ const PostLink = styled(EffectedLink)`
 `
 
 const PostPictures = styled.div`
+  will-change: opacity;
+  opacity: 0;
   grid-column: 1 / -1;
   margin-top: 50px;
+  transition: opacity 200ms ease-out 100ms;
+
+  .wf-loading & {
+    opacity: 0;
+  }
+
+  .wf-active &,
+  .wf-inactive & {
+    opacity: 1;
+  }
 `
 
 const PostTags = styled.footer`
+  will-change: opacity;
+  opacity: 0;
   margin-top: 1rem;
+  transition: opacity 200ms ease-out 100ms;
+
+  .wf-loading & {
+    opacity: 0;
+  }
+
+  .wf-active &,
+  .wf-inactive & {
+    opacity: 1;
+  }
 
   @media (min-width: 992px) {
     margin-top: 50px;
