@@ -7,7 +7,7 @@ const StyledHeader = styled.header`
   will-change: opacity;
   opacity: 0;
   text-align: center;
-  transition: opacity 200ms ease-out;
+  transition: opacity 200ms ease-out 100ms;
 
   .wf-loading & {
     opacity: 0;
