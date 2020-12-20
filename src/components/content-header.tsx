@@ -2,6 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Header = styled.header`
+  will-change: opacity;
+  opacity: 0;
+  transition: opacity 200ms ease-out 100ms;
+
+  .wf-loading & {
+    opacity: 0;
+  }
+
+  .wf-active &,
+  .wf-inactive & {
+    opacity: 1;
+  }
+
   h2 {
     margin-top: 0;
     margin-bottom: 0;
