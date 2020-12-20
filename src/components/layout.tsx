@@ -6,8 +6,6 @@ import Header from './header'
 import SEO from './seo'
 
 const Container = styled.div`
-  will-change: opacity;
-  opacity: 0;
   box-sizing: border-box;
   width: 100%;
   padding-right: 1rem;
@@ -17,16 +15,6 @@ const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
   color: #212529;
-  transition: opacity 200ms ease-out 300ms;
-
-  .wf-loading & {
-    opacity: 0;
-  }
-
-  .wf-active &,
-  .wf-inactive & {
-    opacity: 1;
-  }
 
   @media (min-width: 576px) {
     max-width: 540px;
