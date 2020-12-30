@@ -37,18 +37,27 @@ const Icon = styled(CollectionsBookmarkIcon).attrs(attrs => ({
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: -0.5rem;
   margin-right: -0.5rem;
 `
 
 const PostArticle = styled.article`
-  width: 100%;
+  width: calc(100% - 1rem);
+  margin-top: 50px;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 
-  &:not(:first-child) {
-    margin-top: 50px;
+  @media (min-width: 768px) {
+    width: calc(50% - 1rem);
+  }
+
+  @media (min-width: 992px) {
+    width: calc(33% - 1rem);
+  }
+
+  @media (min-width: 1200px) {
+    width: calc(25% - 1rem);
   }
 `
 
@@ -60,8 +69,8 @@ const PostArticleLink = styled(Link)`
   & > div:first-child {
     display: flex;
     width: ${THUMB_RECT}px;
-    //height: ${THUMB_RECT}px;
-    align-items: center;
+    height: ${THUMB_RECT}px;
+    align-items: flex-start;
     justify-content: center;
   }
 
