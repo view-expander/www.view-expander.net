@@ -12,6 +12,7 @@ import EffectedLink from './effected-link'
 import ListTags from './list-tags'
 import Pictures from './pictures'
 import PostDate from './post-date'
+import PostSeries from './post-series'
 
 type Props = Required<
   ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node'] &
@@ -116,6 +117,7 @@ const BlogPost: React.FC<Props> = ({
   date,
   permanent = true,
   pictures,
+  series,
   slug,
   tags,
   title,
@@ -137,6 +139,7 @@ const BlogPost: React.FC<Props> = ({
           )}
         </h2>
         <PostDate value={date} />
+        {series && <PostSeries {...series} />}
       </PostHeader>
       {pictures && pictures.length > 0 ? (
         <PostPictures>
