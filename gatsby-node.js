@@ -23,6 +23,14 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allContentfulSeries(sort: { fields: name }) {
+        nodes {
+          blog_post {
+            slug
+          }
+          slug
+        }
+      }
       allContentfulTag(sort: { fields: name }) {
         nodes {
           blog_post {
@@ -34,6 +42,7 @@ exports.createPages = async ({ graphql, actions }) => {
       site {
         siteMetadata {
           blogPostPagePath
+          seriesPagePath
           tagsPagePath
         }
       }
@@ -45,8 +54,13 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   const blogPosts = result.data.allContentfulBlogPost.edges
+  const series = result.data.allContentfulSeries.nodes
   const tags = result.data.allContentfulTag.nodes
-  const { blogPostPagePath, tagsPagePath } = result.data.site.siteMetadata
+  const {
+    blogPostPagePath,
+    seriesPagePath,
+    tagsPagePath,
+  } = result.data.site.siteMetadata
 
   paginate({
     createPage,
@@ -64,6 +78,14 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         slug: node.slug,
       },
+    })
+  )
+
+  series.forEach(({ slug }) =>
+    createPage({
+      path: createClosedPath(seriesPagePath, slug),
+      component: path.resolve(`./src/templates/series/_slug.tsx`),
+      context: { slug },
     })
   )
 

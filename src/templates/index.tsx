@@ -38,6 +38,7 @@ const IndexPage: React.FC<PaginatedPageProps<IndexPageQuery>> = ({
             date={node.date}
             permanent={false}
             pictures={node.pictures || []}
+            series={node.series || null}
             slug={node.slug || null}
             tags={node.tags || []}
             title={node.title || null}
@@ -58,8 +59,11 @@ export const query = graphql`
     ) {
       edges {
         node {
-          title
-          slug
+          body {
+            childMarkdownRemark {
+              html
+            }
+          }
           date(locale: "ja-jp")
           pictures {
             featured
@@ -67,15 +71,16 @@ export const query = graphql`
             key
             width
           }
+          series {
+            name
+            slug
+          }
+          slug
           tags {
             name
             slug
           }
-          body {
-            childMarkdownRemark {
-              html
-            }
-          }
+          title
         }
       }
     }

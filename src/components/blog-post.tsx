@@ -12,6 +12,7 @@ import EffectedLink from './effected-link'
 import ListTags from './list-tags'
 import Pictures from './pictures'
 import PostDate from './post-date'
+import PostSeries from './post-series'
 
 type Props = Required<
   ArrayElement<IndexPageQuery['allContentfulBlogPost']['edges']>['node'] &
@@ -28,6 +29,10 @@ const PostArticle = styled.article`
 
   @media (min-width: 992px) {
     grid-template-columns: 1fr 33.33%;
+  }
+
+  header {
+    grid-column: 1 / -1;
   }
 `
 
@@ -61,12 +66,17 @@ const PostBody = styled.div`
   }
 `
 
-const PostHeader = styled(ContentHeader)`
-  grid-column: 1 / -1;
-`
-
 const PostLink = styled(EffectedLink)`
   color: inherit;
+`
+
+const PostSubHeader = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > :not(:first-child) {
+    margin-left: 1em;
+  }
 `
 
 const PostPictures = styled.div`
@@ -116,6 +126,7 @@ const BlogPost: React.FC<Props> = ({
   date,
   permanent = true,
   pictures,
+  series,
   slug,
   tags,
   title,
@@ -124,7 +135,7 @@ const BlogPost: React.FC<Props> = ({
 
   return (
     <PostArticle>
-      <PostHeader>
+      <ContentHeader>
         <h2>
           {permanent || !slug ? (
             title
@@ -136,8 +147,11 @@ const BlogPost: React.FC<Props> = ({
             </PostLink>
           )}
         </h2>
-        <PostDate value={date} />
-      </PostHeader>
+        <PostSubHeader>
+          <PostDate value={date} />
+          {series && <PostSeries {...series} />}
+        </PostSubHeader>
+      </ContentHeader>
       {pictures && pictures.length > 0 ? (
         <PostPictures>
           <Pictures

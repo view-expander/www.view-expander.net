@@ -7,7 +7,6 @@ import NavFooting from '../../components/nav-footing'
 import SEO from '../../components/seo'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 import { getPath, isString, isStringOfNotEmpty } from '../../libs'
-import { isNumber } from '../../libs/guards'
 import { getSharingPhotoPath } from '../../libs/imgix'
 
 const createNavItem = (
@@ -84,6 +83,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
       <BlogPost
         body={node.body || null}
         date={node.date}
+        series={node.series || null}
         slug={node.slug || null}
         pictures={node.pictures || []}
         tags={node.tags || []}
@@ -97,8 +97,12 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostQuery>> = ({ data }) => {
 export const query = graphql`
   query BlogPost($slug: String!) {
     contentfulBlogPost(slug: { eq: $slug }) {
-      title
-      slug
+      body {
+        childMarkdownRemark {
+          html
+          excerpt(truncate: true)
+        }
+      }
       date(locale: "ja-jp")
       pictures {
         featured
@@ -106,16 +110,16 @@ export const query = graphql`
         key
         width
       }
+      series {
+        name
+        slug
+      }
+      slug
       tags {
         name
         slug
       }
-      body {
-        childMarkdownRemark {
-          html
-          excerpt(truncate: true)
-        }
-      }
+      title
     }
     allContentfulBlogPost(sort: { fields: date, order: DESC }) {
       edges {

@@ -12,6 +12,7 @@ export const useSiteMetadata = () => {
           facebookAppId
           imgixDomain
           instagram
+          seriesPagePath
           siteUrl
           tagsPagePath
           title
