@@ -15,6 +15,7 @@ module.exports = {
     facebookAppId: process.env.FACEBOOK_APP_ID,
     imgixDomain: IMGIX_DOMAIN,
     instagram: `haribote`,
+    seriesPagePath: `series`,
     siteUrl: 'https://www.view-expander.net/',
     tagsPagePath: `tags`,
     title: `View Expander`,
