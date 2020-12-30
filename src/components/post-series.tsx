@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const P = styled.p`
   display: flex;
   align-items: flex-end;
+  color: #6c757d;
   line-height: 1rem;
 
   small {
