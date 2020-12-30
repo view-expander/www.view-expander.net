@@ -34,8 +34,22 @@ const Icon = styled(CollectionsBookmarkIcon).attrs(attrs => ({
   margin-right: 0.25em;
 `
 
-const PostArticle = styled.article`
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 100px;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+`
+
+const PostArticle = styled.article`
+  width: 100%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+
+  &:not(:first-child) {
+    margin-top: 50px;
+  }
 `
 
 const PostArticleLink = styled(Link)`
@@ -46,12 +60,13 @@ const PostArticleLink = styled(Link)`
   & > div:first-child {
     display: flex;
     width: ${THUMB_RECT}px;
+    //height: ${THUMB_RECT}px;
     align-items: center;
     justify-content: center;
   }
 
   & > div + div {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
   }
 
   h3 {
@@ -120,48 +135,55 @@ const SeriesItemsTemplate: React.FC<PageProps<SeriesIndexPageQuery>> = ({
           {series.name}
         </CurrentSeries>
       </NavHeading>
-      {data.allContentfulBlogPost.edges.map(({ node }) => {
-        if (!node) {
-          return undefined
-        }
-
-        const { height, key, width } =
-          node.pictures.find(item => item && item.featured) || node.pictures[0]
-        const thumbAttrs = getPhotoAttributes(
-          { height, key, width },
-          {
-            w: THUMB_RECT,
-            h: THUMB_RECT,
+      <Wrapper>
+        {data.allContentfulBlogPost.edges.map(({ node }) => {
+          if (!node) {
+            return undefined
           }
-        )
-        const mag =
-          THUMB_RECT /
-          (thumbAttrs.aspectRatio < 1 ? thumbAttrs.width : thumbAttrs.height)
 
-        return (
-          <PostArticle key={node.slug}>
-            <PostArticleLink
-              to={getPath(undefined, siteMetadata?.blogPostPagePath, node.slug)}
-            >
-              <div>
-                <img
-                  src={thumbAttrs.src}
-                  srcSet={thumbAttrs.srcSet}
-                  width={thumbAttrs.width * mag}
-                  height={thumbAttrs.height * mag}
-                  alt=""
-                  decoding="async"
-                  loading="lazy"
-                />
-              </div>
-              <div>
-                <h3>{node.title}</h3>
-                <PostDate value={node.date} />
-              </div>
-            </PostArticleLink>
-          </PostArticle>
-        )
-      })}
+          const { height, key, width } =
+            node.pictures.find(item => item && item.featured) ||
+            node.pictures[0]
+          const thumbAttrs = getPhotoAttributes(
+            { height, key, width },
+            {
+              w: THUMB_RECT,
+              h: THUMB_RECT,
+            }
+          )
+          const mag =
+            THUMB_RECT /
+            (thumbAttrs.aspectRatio < 1 ? thumbAttrs.width : thumbAttrs.height)
+
+          return (
+            <PostArticle key={node.slug}>
+              <PostArticleLink
+                to={getPath(
+                  undefined,
+                  siteMetadata?.blogPostPagePath,
+                  node.slug
+                )}
+              >
+                <div>
+                  <img
+                    src={thumbAttrs.src}
+                    srcSet={thumbAttrs.srcSet}
+                    width={thumbAttrs.width * mag}
+                    height={thumbAttrs.height * mag}
+                    alt=""
+                    decoding="async"
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <h3>{node.title}</h3>
+                  <PostDate value={node.date} />
+                </div>
+              </PostArticleLink>
+            </PostArticle>
+          )
+        })}
+      </Wrapper>
     </Layout>
   )
 }
