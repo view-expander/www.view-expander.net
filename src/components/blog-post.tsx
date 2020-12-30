@@ -30,6 +30,10 @@ const PostArticle = styled.article`
   @media (min-width: 992px) {
     grid-template-columns: 1fr 33.33%;
   }
+
+  header {
+    grid-column: 1 / -1;
+  }
 `
 
 const PostBody = styled.div`
@@ -60,10 +64,6 @@ const PostBody = styled.div`
     margin-top: 0;
     margin-bottom: 0;
   }
-`
-
-const PostHeader = styled(ContentHeader)`
-  grid-column: 1 / -1;
 `
 
 const PostLink = styled(EffectedLink)`
@@ -126,7 +126,7 @@ const BlogPost: React.FC<Props> = ({
 
   return (
     <PostArticle>
-      <PostHeader>
+      <ContentHeader>
         <h2>
           {permanent || !slug ? (
             title
@@ -140,7 +140,7 @@ const BlogPost: React.FC<Props> = ({
         </h2>
         <PostDate value={date} />
         {series && <PostSeries {...series} />}
-      </PostHeader>
+      </ContentHeader>
       {pictures && pictures.length > 0 ? (
         <PostPictures>
           <Pictures
