@@ -3,9 +3,12 @@ import { graphql, PageProps } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { SeriesIndexPageQuery } from '../../../graphql-types'
+import EffectedLink from '../../components/effected-link'
 import Layout from '../../components/layout'
 import NavHeading from '../../components/nav-heading'
 import SEO from '../../components/seo'
+import { useSiteMetadata } from '../../hooks/useSiteMetadata'
+import { getPath } from '../../libs'
 
 const Wrapper = styled.div`
   margin-top: 100px;
@@ -29,10 +32,13 @@ const UL = styled.ul`
 `
 
 const LI = styled.li`
-  display: inline-flex;
-  align-items: center;
   margin-left: 0.5em;
   line-height: 1.333rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+  }
 `
 
 const Icon = styled(CollectionsBookmarkIcon).attrs(attrs => ({
@@ -46,22 +52,30 @@ const Icon = styled(CollectionsBookmarkIcon).attrs(attrs => ({
 
 const SeriesIndexPage: React.FC<PageProps<SeriesIndexPageQuery>> = ({
   data,
-}) => (
-  <Layout>
-    <SEO title={`Series`} />
-    <NavHeading>Series</NavHeading>
-    <Wrapper>
-      <UL>
-        {data.allContentfulSeries.edges.map(({ node }) => (
-          <LI key={node.slug}>
-            <Icon />
-            {node.name}
-          </LI>
-        ))}
-      </UL>
-    </Wrapper>
-  </Layout>
-)
+}) => {
+  const siteMetadata = useSiteMetadata()
+
+  return (
+    <Layout>
+      <SEO title={`Series`} />
+      <NavHeading>Series</NavHeading>
+      <Wrapper>
+        <UL>
+          {data.allContentfulSeries.edges.map(({ node }) => (
+            <LI key={node.slug}>
+              <EffectedLink
+                to={getPath(undefined, siteMetadata?.seriesPagePath, node.slug)}
+              >
+                <Icon />
+                {node.name}
+              </EffectedLink>
+            </LI>
+          ))}
+        </UL>
+      </Wrapper>
+    </Layout>
+  )
+}
 
 export const query = graphql`
   query SeriesIndexPage {
