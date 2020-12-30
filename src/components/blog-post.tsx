@@ -70,6 +70,15 @@ const PostLink = styled(EffectedLink)`
   color: inherit;
 `
 
+const PostSubHeader = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > :not(:first-child) {
+    margin-left: 1em;
+  }
+`
+
 const PostPictures = styled.div`
   will-change: opacity;
   opacity: 0;
@@ -138,8 +147,10 @@ const BlogPost: React.FC<Props> = ({
             </PostLink>
           )}
         </h2>
-        <PostDate value={date} />
-        {series && <PostSeries {...series} />}
+        <PostSubHeader>
+          <PostDate value={date} />
+          {series && <PostSeries {...series} />}
+        </PostSubHeader>
       </ContentHeader>
       {pictures && pictures.length > 0 ? (
         <PostPictures>
