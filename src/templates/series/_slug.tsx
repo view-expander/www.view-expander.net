@@ -1,6 +1,5 @@
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark'
 import { graphql, Link, PageProps } from 'gatsby'
-import { number } from 'prop-types'
 import React from 'react'
 import { useInView } from 'react-intersection-observer'
 import styled from 'styled-components'
@@ -148,30 +147,58 @@ const useThumb = (
 
   return attrs
     ? {
-        ...attrs,
+        src: attrs.src,
+        srcSet: attrs.srcSet,
         width: attrs.width * mag,
         height: attrs.height * mag,
       }
     : undefined
 }
 
+const ThumbSkeleton: React.FC<{ height: number; width: number }> = ({
+  height,
+  width,
+}) => (
+  <svg
+    viewBox={`${0} ${0} ${width} ${height}`}
+    width={width}
+    height={height}
+    aria-hidden
+  >
+    <rect
+      x={0}
+      y={0}
+      width={width}
+      height={height}
+      fill={`none`}
+      stroke={`none`}
+    />
+  </svg>
+)
+
 const SeriesItem: React.FC<Required<
   ArrayElement<SeriesItemsQuery['allContentfulBlogPost']['edges']>['node']
 >> = ({ date, pictures, slug, title }) => {
   const siteMetadata = useSiteMetadata()
   const thumb = useThumb(pictures)
-  // const [ref, inView] = useInView({
-  //   threshold: 0.33,
-  //   triggerOnce: true,
-  // })
+  const [ref, inView] = useInView({
+    threshold: 0.33,
+    triggerOnce: true,
+  })
 
   return (
-    <PostArticle key={slug}>
+    <PostArticle key={slug} ref={ref}>
       <PostArticleLink
         to={getPath(undefined, siteMetadata?.blogPostPagePath, slug)}
       >
         <div>
-          {thumb && <img {...thumb} alt="" decoding="async" loading="lazy" />}
+          {thumb ? (
+            inView ? (
+              <img {...thumb} alt="" loading="lazy" />
+            ) : (
+              <ThumbSkeleton width={thumb.width} height={thumb.height} />
+            )
+          ) : undefined}
         </div>
         <div>
           <h3>{title}</h3>
@@ -217,6 +244,7 @@ const SeriesItemsTemplate: React.FC<PageProps<SeriesItemsQuery>> = ({
         {data.allContentfulBlogPost.edges.map(({ node }) =>
           node.slug && node.title ? (
             <SeriesItem
+              key={node.slug}
               date={node.date}
               slug={node.slug}
               title={node.title}
