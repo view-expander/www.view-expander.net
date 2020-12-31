@@ -1,8 +1,9 @@
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark'
 import { graphql, Link, PageProps } from 'gatsby'
 import React from 'react'
+import { useInView } from 'react-intersection-observer'
 import styled from 'styled-components'
-import { SeriesIndexPageQuery } from '../../../graphql-types'
+import { SeriesItemsQuery } from '../../../graphql-types'
 import EffectedLink from '../../components/effected-link'
 import Layout from '../../components/layout'
 import NavHeading from '../../components/nav-heading'
@@ -43,6 +44,8 @@ const Wrapper = styled.div`
 `
 
 const PostArticle = styled.article`
+  content-visibility: auto;
+  contain-intrinsic-size: ${THUMB_RECT}px;
   width: calc(100% - 1rem);
   margin-top: 50px;
   margin-left: 0.5rem;
@@ -113,7 +116,104 @@ const PostArticleLink = styled(Link)`
   }
 `
 
-const SeriesItemsTemplate: React.FC<PageProps<SeriesIndexPageQuery>> = ({
+const useThumb = (
+  pictures: Required<
+    ArrayElement<SeriesItemsQuery['allContentfulBlogPost']['edges']>['node']
+  >['pictures']
+) => {
+  const item =
+    Array.isArray(pictures) && pictures.length > 0
+      ? pictures.find(item => item && item.featured) || pictures[0]
+      : undefined
+
+  if (!item) {
+    return
+  }
+
+  const height = Number(item.height)
+  const width = Number(item.width)
+  const { key } = item
+  const attrs =
+    Number.isFinite(height) && Number.isFinite(width) && key
+      ? getPhotoAttributes(
+          { height, key, width },
+          {
+            w: THUMB_RECT,
+            h: THUMB_RECT,
+          }
+        )
+      : undefined
+  const mag = attrs
+    ? THUMB_RECT / (attrs.aspectRatio < 1 ? attrs.width : attrs.height)
+    : 1
+
+  return attrs
+    ? {
+        src: attrs.src,
+        srcSet: attrs.srcSet,
+        width: attrs.width * mag,
+        height: attrs.height * mag,
+      }
+    : undefined
+}
+
+const ThumbSkeleton: React.FC<{ height: number; width: number }> = ({
+  height,
+  width,
+}) => (
+  <svg
+    viewBox={`${0} ${0} ${width} ${height}`}
+    width={width}
+    height={height}
+    role={`img`}
+    aria-hidden
+  >
+    <rect
+      x={0}
+      y={0}
+      width={width}
+      height={height}
+      fill={`#6c757d`}
+      fillOpacity={0.5}
+      stroke={`none`}
+    />
+  </svg>
+)
+
+const SeriesItem: React.FC<Required<
+  ArrayElement<SeriesItemsQuery['allContentfulBlogPost']['edges']>['node']
+>> = ({ date, pictures, slug, title }) => {
+  const siteMetadata = useSiteMetadata()
+  const thumb = useThumb(pictures)
+  const [ref, inView] = useInView({
+    threshold: 0.33,
+    triggerOnce: true,
+  })
+
+  return (
+    <PostArticle key={slug} ref={ref}>
+      <PostArticleLink
+        to={getPath(undefined, siteMetadata?.blogPostPagePath, slug)}
+      >
+        <div>
+          {thumb ? (
+            inView ? (
+              <img {...thumb} alt="" loading="lazy" />
+            ) : (
+              <ThumbSkeleton width={thumb.width} height={thumb.height} />
+            )
+          ) : undefined}
+        </div>
+        <div>
+          <h3>{title}</h3>
+          <PostDate value={date} />
+        </div>
+      </PostArticleLink>
+    </PostArticle>
+  )
+}
+
+const SeriesItemsTemplate: React.FC<PageProps<SeriesItemsQuery>> = ({
   data,
 }) => {
   const series = data.contentfulSeries
@@ -145,53 +245,17 @@ const SeriesItemsTemplate: React.FC<PageProps<SeriesIndexPageQuery>> = ({
         </CurrentSeries>
       </NavHeading>
       <Wrapper>
-        {data.allContentfulBlogPost.edges.map(({ node }) => {
-          if (!node) {
-            return undefined
-          }
-
-          const { height, key, width } =
-            node.pictures.find(item => item && item.featured) ||
-            node.pictures[0]
-          const thumbAttrs = getPhotoAttributes(
-            { height, key, width },
-            {
-              w: THUMB_RECT,
-              h: THUMB_RECT,
-            }
-          )
-          const mag =
-            THUMB_RECT /
-            (thumbAttrs.aspectRatio < 1 ? thumbAttrs.width : thumbAttrs.height)
-
-          return (
-            <PostArticle key={node.slug}>
-              <PostArticleLink
-                to={getPath(
-                  undefined,
-                  siteMetadata?.blogPostPagePath,
-                  node.slug
-                )}
-              >
-                <div>
-                  <img
-                    src={thumbAttrs.src}
-                    srcSet={thumbAttrs.srcSet}
-                    width={thumbAttrs.width * mag}
-                    height={thumbAttrs.height * mag}
-                    alt=""
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </div>
-                <div>
-                  <h3>{node.title}</h3>
-                  <PostDate value={node.date} />
-                </div>
-              </PostArticleLink>
-            </PostArticle>
-          )
-        })}
+        {data.allContentfulBlogPost.edges.map(({ node }) =>
+          node.slug && node.title ? (
+            <SeriesItem
+              key={node.slug}
+              date={node.date}
+              slug={node.slug}
+              title={node.title}
+              pictures={node.pictures || []}
+            />
+          ) : undefined
+        )}
       </Wrapper>
     </Layout>
   )
