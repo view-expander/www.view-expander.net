@@ -44,6 +44,8 @@ const Wrapper = styled.div`
 `
 
 const PostArticle = styled.article`
+  content-visibility: auto;
+  contain-intrinsic-size: ${THUMB_RECT}px;
   width: calc(100% - 1rem);
   margin-top: 50px;
   margin-left: 0.5rem;
@@ -163,6 +165,7 @@ const ThumbSkeleton: React.FC<{ height: number; width: number }> = ({
     viewBox={`${0} ${0} ${width} ${height}`}
     width={width}
     height={height}
+    role={`img`}
     aria-hidden
   >
     <rect
@@ -170,7 +173,8 @@ const ThumbSkeleton: React.FC<{ height: number; width: number }> = ({
       y={0}
       width={width}
       height={height}
-      fill={`none`}
+      fill={`#6c757d`}
+      fillOpacity={0.5}
       stroke={`none`}
     />
   </svg>
